@@ -19,11 +19,8 @@ var topKFrequent = function(nums, k) {
     
     //console.log(map);
     
-    let sortedArray = Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
-    console.log(sortedArray)
-    let sortedMap = new Map(sortedArray);
+    let sortedMap = new Map([...map.entries()].sort((a,b) => b[1] - a[1]));
 
-    console.log(sortedMap);
 for (const [key, value] of sortedMap) {
     // if (value >= 1) {
         result.push(key);
@@ -34,6 +31,5 @@ for (const [key, value] of sortedMap) {
     }
 }
     
-    //console.log(result);
     return result;
 };
