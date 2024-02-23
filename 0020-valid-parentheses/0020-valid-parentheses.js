@@ -37,11 +37,7 @@ var isValid = function(s) {
     }
     
     //if after the end of iteration array length is not 0 means there are no closing brackets hence return false
-    if (s1.length ==0){
-    return true;
-    }
-    else{
-    return false;
-    }
+    return s1.length ==0;
+
 };
 
