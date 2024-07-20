@@ -3,41 +3,28 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-    let arr = s.split('');
+    let arr = [];
     
-    console.log(arr);
-    let s1=[];
-    
-    let map = new Map([
-        [')', '('],
-        [']', '['],
-        ['}', '{']
-    ])
-    
-    if (arr.length%2 !== 0){
+    let map = {
+        '}': '{',
+        ']': '[',
+        ')':'(',
+    }
+  
+    if (s.length % 2 === 1) {
         return false;
     }
-    for (let char of arr){
-      console.log('s1', s1)
-        if (char==='(' || char==='[' || char === '{'){
-            s1.push(char);
+
+    arr.push(s[0]);
+    for (let i=1; i<s.length; i++) {
+        if (arr.length && arr[arr.length -1] === map[s[i]]) {
+            arr.pop();
+            continue;
         }
-        else if(char===')' || char===']' || char === '}'){
-            let temp = s1.pop();
-            // console.log('tmp', temp)
-            // console.log(temp === map.get(char))
-            // console.log(map.get(char))
-            if (temp === map.get(char)){
-                continue;
-            }
-            else{
-                return false;
-            }
+        else {
+            arr.push(s[i]);
         }
     }
     
-    //if after the end of iteration array length is not 0 means there are no closing brackets hence return false
-    return s1.length ==0;
-
+    return arr.length === 0;
 };
-
