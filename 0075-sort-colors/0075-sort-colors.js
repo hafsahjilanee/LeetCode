@@ -5,10 +5,6 @@
 var sortColors = function(nums) {   
     let count = {0:0, 1:0, 2:0};
     
-    if (nums.length< count.length) {
-        count = new Array(nums.length).fill(0);
-    }
-    
     for (let i=0; i<nums.length; i++) {
         count[nums[i]] +=1
     }
