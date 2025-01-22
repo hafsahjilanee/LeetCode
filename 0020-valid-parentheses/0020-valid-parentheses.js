@@ -3,28 +3,31 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-    let arr = [];
-    
-    let map = {
+    const obj = {
+        ')': '(',
         '}': '{',
-        ']': '[',
-        ')':'(',
+        ']': '['
     }
-  
-    if (s.length % 2 === 1) {
+
+    const closingBrackets = [')', ']', '}'];
+
+    if (s.length % 2 !==0) {
         return false;
     }
 
-    arr.push(s[0]);
-    for (let i=1; i<s.length; i++) {
-        if (arr.length && arr[arr.length -1] === map[s[i]]) {
-            arr.pop();
-            continue;
+    let stack = [];
+
+    for (let i=0; i<s.length; i++) {
+        if (closingBrackets.includes(s[i])) {
+            if (stack.pop() !== obj[s[i]]) {
+                return false
+            }
+            else {
+                continue;
+            }
         }
-        else {
-            arr.push(s[i]);
-        }
+        stack.push(s[i]);
     }
-    
-    return arr.length === 0;
+
+    return stack.length ? false: true;
 };
