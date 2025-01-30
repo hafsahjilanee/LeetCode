@@ -20,5 +20,5 @@ var countWays = function(ranges) {
     }
 
 console.log("merged", merged.length);
-    return BigInt(2) ** BigInt(merged.length) % BigInt(1000000007);
+    return Number(BigInt(2) ** BigInt(merged.length) % BigInt(1000000007));
 };
