@@ -6,34 +6,21 @@ var frequencySort = function(nums) {
     let map = new Map();
 
     for (const num of nums) {
-        if (map.has(num)) {
-            map.set(num, map.get(num)+1);
-        }
-        else {
-            map.set(num,1);
-        }
+        map.set(num, (map.get(num)||0)+1);
     }
     
-    let sortedByValues = new Map([...map.entries()].sort((a,b)=>
-    {
-        if (a[1] !== b[1]) { //if freq is not same sort by inc/asc order i.e -1
-            return a[1] - b[1];
-        }
-        else { //if freq is same sort by dec/asc order
-               //1 is asc, -1 is desc
-            return b[0] > a[0] ? 1 : -1;
-        }
-    }));
+    nums.sort((a,b) => {
+        const freqA = map.get(a);
+        const freqB = map.get(b);
 
-    let res = [];
-    let count = 0
-    for (const [key,value] of sortedByValues) {
-        while (count<value) {
-            res.push(key);
-            count++;
+        //if freq are not equal sort by freq in asc else desc
+        if (freqA !== freqB) {
+            return freqA - freqB;
         }
-        count = 0;
-    }
+        else {
+            return b-a;
+        }
+    })
 
-    return res;
+    return nums;
 };
