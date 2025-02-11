@@ -14,29 +14,28 @@ var canFinish = function(numCourses, prerequisites) {
         map.get(course).push(prereq);
     }
     let visited = new Set();
+    let onPath = new Set();
 
     const dfs = (course) => {
-        //course has already been visited
+        //course has already been visited, skip
         if (visited.has(course)) {
-            return false;
-        }
-
-        //course has no prereqs
-        if (map.get(course).length===0) {
             return true;
         }
 
-        visited.add(course);
+        //course found on current path
+        if (onPath.has(course)) {
+            return false;
+        }
+
+        onPath.add(course);
         for (const prereq of map.get(course)) {
             if (!dfs(prereq)) {
                 return false;
             }
         }
 
-        visited.delete(course);
-        map.set(course, []);
-        console.log("visited after", visited);
-        console.log("map after", map);
+        onPath.delete(course);
+        visited.add(course);
         return true
     }
 
