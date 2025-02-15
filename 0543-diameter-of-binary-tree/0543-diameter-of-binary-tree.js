@@ -11,6 +11,9 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
+    //time complexity is linear O(n)
+    //space complexity O(log n) for balanced tree
+    //space complexity O(n) for unblanced tree
     let res = 0;
 
     const dfs = (curr) => {
