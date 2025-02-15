@@ -4,7 +4,6 @@
  */
 var simplifyPath = function(path) {
     let pathItems = path.split('/');
-    console.log(pathItems);
     let stack = [];
     for (const item of pathItems) {
         if (item === '' || item === '.') {
