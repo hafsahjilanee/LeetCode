@@ -4,22 +4,28 @@
  * @return {boolean}
  */
 var isAnagram = function(s, t) {
-  let sorted1 = s.toLowerCase().split('').sort();
-  let sorted2 = t.toLowerCase().split('').sort();
+    if (s.length !== t.length) {
+        return false;
+    }
+    let s1 = new Map();
 
-  
-  if (sorted1.length !== sorted2.length){
-    return false
-  }
-  
-  for (let i=0; i<sorted1.length; i++){
-    if (sorted1[i] === sorted2[i]){
-      continue;
+    for (let char of s) {
+        s1.set(char, (s1.get(char)||0) + 1);
     }
-    else{
-      return false;
+
+    let t1= new Map();
+    for (let char of t) {
+        t1.set(char, (t1.get(char)||0) + 1);
     }
-  }
-  
-  return true;
+
+    for (const char of s) {
+        if (s1.get(char) === t1.get(char)) {
+            continue;
+        }
+        else {
+            return false;
+        }
+    }
+
+    return true;
 };
