@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var verticalTraversal = function(root) {
+var verticalTraversal = function (root) {
     if (!root) return [];
 
     let treeMap = new Map();
@@ -18,22 +18,22 @@ var verticalTraversal = function(root) {
     let max = -Infinity;
     let min = +Infinity;
 
-    let q = [[0,0, root]];
+    let q = [[0, 0, root]];
 
     while (q.length) {
-        let [x,y,node] = q.shift();
+        let [x, y, node] = q.shift();
 
-        min = Math.min(min,y);
-        max = Math.max(max,y);
+        min = Math.min(min, y);
+        max = Math.max(max, y);
 
-        treeMap.set(y, [...(treeMap.get(y) || []), {x, val: node.val}])
-        
+        treeMap.set(y, [...(treeMap.get(y) || []), { x, val: node.val }])
+
 
         if (node.left) {
-            q.push([x+1, y-1, node.left]);
+            q.push([x + 1, y - 1, node.left]);
         }
         if (node.right) {
-            q.push([x+1, y+1, node.right])
+            q.push([x + 1, y + 1, node.right])
         }
     }
 
@@ -42,18 +42,13 @@ var verticalTraversal = function(root) {
 
     //sample output like 0 => [ { x: 0, val: 3 }, { x: 2, val: 15 } ],
     //we want to sort based on x now
-    for (let i=min; i<=max; i++) {
-        if (treeMap.get(i).length>1) {
-            let sortedByX = treeMap.get(i).sort((a, b) => {
-                if (a.x === b.x) return a.val - b.val; // Sort by value if row is the same
-                return a.x - b.x; // Otherwise, sort by row index
-            });
-            let array = sortedByX.map((e)=> e.val);
-            res.push(array);
-        }
-        else {
-            res.push(treeMap.get(i).map(e => e.val));
-        }
+    for (let i = min; i <= max; i++) {
+        let sortedByX = treeMap.get(i).sort((a, b) => {
+            if (a.x === b.x) return a.val - b.val; // Sort by value if row is the same
+            return a.x - b.x; // Otherwise, sort by row index
+        });
+        let array = sortedByX.map((e) => e.val);
+        res.push(array);
     }
 
     console.log(res);
