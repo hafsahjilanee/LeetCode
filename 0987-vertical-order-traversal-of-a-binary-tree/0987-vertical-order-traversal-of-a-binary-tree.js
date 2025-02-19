@@ -38,7 +38,6 @@ var verticalTraversal = function (root) {
     }
 
     let res = [];
-    console.log(treeMap);
 
     //sample output like 0 => [ { x: 0, val: 3 }, { x: 2, val: 15 } ],
     //we want to sort based on x now
@@ -51,6 +50,5 @@ var verticalTraversal = function (root) {
         res.push(array);
     }
 
-    console.log(res);
     return res;
 };
