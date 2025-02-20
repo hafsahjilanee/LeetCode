@@ -8,49 +8,30 @@ var minRemoveToMakeValid = function(s) {
     let s1 = s.split('');
     let res = [];
 
+    //forward pass to check no closing bracket before opening bracket ))((
     for (const char of s1) {
         if (char === '(') {
             open++;
         }
         else if (char === ')') {
-            close++;
-        }
-        else {
-            //always process other characters
-            res.push(char);
-            continue;
-        }
-
-        //IMPORTANT TO ADD CONDITION HERE, if more closing bracket then dont add
-        if (close>open) {
-            close--;
-            continue;
+            if (open===0) continue;
+            open--;
         }
         res.push(char);
-        
-        
     }
-    open=0, close=0;
+
     let result = [];
 
+    //backward pass to check for opening brackets
     for (let i=res.length-1; i>=0; i--) {
         if (res[i] === '(') {
-            open++;
+            if (close === 0) continue;
+            close--;
         }
         else if (res[i] === ')') {
             close++;
         }
-        else {
-            //always process other characters
-            result.push(res[i]);
-            continue;
-        }
-
-        //IMPORTANT TO ADD CONDITION HERE, if more closing bracket then dont add
-        if (open>close) {
-            open--;
-            continue;
-        }
+        
         result.push(res[i]);
     }
 
