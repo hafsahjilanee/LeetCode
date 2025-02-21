@@ -12,6 +12,8 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
+    //time is O(n) it depends on what k is, if k is too large we will have to process entire tree
+    //for balanced in O(logn) and for unbalanced O(n) so worst case is O(n)
     let stack = [];
 
     while (true) {
