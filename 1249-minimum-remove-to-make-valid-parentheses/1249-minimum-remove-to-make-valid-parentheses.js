@@ -5,11 +5,10 @@
 var minRemoveToMakeValid = function(s) {
     let open = 0;
     let close = 0;
-    let s1 = s.split('');
     let res = [];
 
     //forward pass to check no closing bracket before opening bracket ))((
-    for (const char of s1) {
+    for (const char of s) {
         if (char === '(') {
             open++;
         }
