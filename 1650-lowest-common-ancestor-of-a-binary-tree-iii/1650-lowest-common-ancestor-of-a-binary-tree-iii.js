@@ -14,8 +14,8 @@
  * @return {_Node}
  */
 var lowestCommonAncestor = function(p, q) {
-    //time O(2n)
-    //space O(n)
+    //time O(n)
+    //space O(1) nc we're not making any data structure to keep track of nodes that grows with loop
     let pCopy = p;
     let qCopy = q;
 
