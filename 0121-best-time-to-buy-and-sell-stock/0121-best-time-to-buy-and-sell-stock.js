@@ -3,6 +3,8 @@
  * @return {number}
  */
 var maxProfit = function(prices) {
+    //time O(n)
+    //space O(1)
     if (prices.length===0) return 0;
 
     let profit =0;
