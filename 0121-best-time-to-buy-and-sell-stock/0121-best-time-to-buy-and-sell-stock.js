@@ -16,6 +16,5 @@ var maxProfit = function(prices) {
         }
     }
 
-    console.log(profit);
     return profit;
 };
