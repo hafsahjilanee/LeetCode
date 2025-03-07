@@ -3,6 +3,8 @@
  * @return {number}
  */
 var findPeakElement = function(nums) {
+    //time is O(logn)
+    //space is O(1)
     let left =0;
     let right = nums.length-1;
     let middle;
