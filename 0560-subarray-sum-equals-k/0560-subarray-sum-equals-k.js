@@ -4,25 +4,20 @@
  * @return {number}
  */
 var subarraySum = function(nums, k) {
-    if (!nums.length) {
-        return 0;
-    }
+    let sum =0;
+    let count = 0;
 
     let prefixMap = new Map();
 
-    //for the case that an element in itself is the solution, or the array from the beginning to a particular index is the solution
-    prefixMap.set(0,1)
-
-    let currSum = 0; 
-    let count = 0;
+    prefixMap.set(0,1);
 
     for (let num of nums) {
-        currSum+= num;
-
-        if (prefixMap.has(currSum-k)) {
-            count = prefixMap.get(currSum-k)+1;
+        sum+= num;
+        if (prefixMap.has(sum-k))  {
+            count+= prefixMap.get(sum-k);
         }
-        prefixMap.set(currSum, (prefixMap.get(currSum)||0)+1);
+
+        prefixMap.set(sum, (prefixMap.get(sum)||0) +1);
     }
 
     return count;
