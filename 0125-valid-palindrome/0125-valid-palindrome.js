@@ -7,13 +7,11 @@ var isPalindrome = function(s) {
     let right = s.length-1;
 
     while (left<right) {
-        if (!isLetter(s[left])) {
+        while (left<right && !isLetter(s[left])) {
             left++;
-            continue;
         }
-        else if (!isLetter(s[right])) {
+        while (left<right &&!isLetter(s[right])) {
             right--;
-            continue;
         }
 
         if (s[left].toLowerCase() === s[right].toLowerCase()) {
