@@ -14,14 +14,13 @@ var isPalindrome = function(s) {
             right--;
         }
 
-        if (s[left].toLowerCase() === s[right].toLowerCase()) {
-            left++;
-            right--;
-            continue;
-        }
-        else {
+        if (s[left].toLowerCase() !== s[right].toLowerCase()) {
             return false;
         }
+
+        left++;
+        right--;
+     
     }
 
     return true;
