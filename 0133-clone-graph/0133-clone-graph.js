@@ -11,27 +11,28 @@
  * @return {_Node}
  */
 var cloneGraph = function(node) {
+    if (!node) return null;
+
     let oldToNew = new Map();
+    oldToNew.set(node, new Node(node.val));
 
-    let dfs = (node) => {
-        if (!node) {
-            return null
+    let q = [];
+    q.push(node);
+
+    while (q.length) {
+        let curr = q.shift();
+
+        for (let nei of curr.neighbors) {
+            if (!oldToNew.has(nei)) {
+                q.push(nei);
+                oldToNew.set(nei, new Node(nei.val))
+            }
+
+            oldToNew.get(curr).neighbors.push(oldToNew.get(nei));
         }
-
-        if (oldToNew.has(node)) {
-            return oldToNew.get(node);
-        }
-
-        const copy = new _Node(node.val);
-        oldToNew.set(node, copy);
-
-        for (const nei of node.neighbors) {
-            copy.neighbors.push(dfs(nei));
-        }
-
-        return copy;
-
     }
 
-    return dfs(node,oldToNew);
+    return oldToNew.get(node);
+
+
 };
