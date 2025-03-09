@@ -3,10 +3,11 @@
  * @return {number}
  */
 var calculate = function (s) {
+    //time O(n)
+    //space O(1)
     let curr_operation = '+';
     let res = 0;
     let prev = 0;
-    let sum = 0;
 
     for (let i = 0; i < s.length; i++) {
         if (s[i] === ' ') {
