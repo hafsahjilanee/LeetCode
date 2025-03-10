@@ -10,7 +10,8 @@ var isPalindrome = function(s) {
         while (left<right && !isLetter(s[left])) {
             left++;
         }
-        while (left<right &&!isLetter(s[right])) {
+
+        while (left<right && !isLetter(s[right])) {
             right--;
         }
 
@@ -20,12 +21,12 @@ var isPalindrome = function(s) {
 
         left++;
         right--;
-     
     }
 
     return true;
 };
 
 function isLetter(char) {
-    return /^[a-zA-Z0-9]$/.test(char);
+    let regex = /^[a-zA-Z0-9]$/;
+    return regex.test(char);
 }
