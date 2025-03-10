@@ -3,34 +3,32 @@
  * @return {number}
  */
 var shortestPathBinaryMatrix = function(grid) {
-    const ROWS = grid.length, COLS = grid[0].length;
-    //left, right, up, down, diagnally
-    const directions = [[1,0], [-1,0], [0,1], [0,-1], 
-                        [1,-1], [-1,-1],[-1,1],[1,1]];
-    
-    if (grid[0][0] === 1) {
-        return -1;
-    }
-    //first two indexes are starting index and last one is the length
-    let q = [[0,0,1]];
-    //mark first index 0,0 as visted
-    grid[0][0] = 1;
+    let directions = [[0,1], [0,-1], [1,0], [-1,0], [1,-1],[1,1],[-1,-1],[-1,1]];
+    let ROWS = grid.length;
+    let COLS = grid[0].length;
+
+    let q = [];
+    if (grid[0][0] === 1 || grid[ROWS-1][COLS-1] === 1) return -1;
+    //starting index 0,0 and then starting length is 1
+    q.push([0,0,1])
+    grid[0][0] =1;
 
     while (q.length) {
-        const [r,c,length] =q.shift();
+        let [row, col, length] = q.shift();
 
-        if (r===ROWS-1 && c===COLS-1) return length;
+        if (row===ROWS-1 && col===COLS-1) return length;
 
-        for (const [dr,dc] of directions) {
-            const nr = r+dr, nc = c + dc;
+        for (let [r,c] of directions) {
+            let nr = row+r;
+            let nc = col+c;
 
-            if (Math.min(nr,nc)<0 || nr === ROWS || nc === COLS || grid[nr][nc] === 1) {
+            if (Math.min(nr,nc)<0 || nr>=ROWS || nc>=COLS || grid[nr][nc]===1) {
                 continue;
             }
-
             grid[nr][nc] = 1;
-            q.push([nr,nc,length+1])
+            q.push([nr,nc,length+1]);
         }
     }
+
     return -1;
 };
