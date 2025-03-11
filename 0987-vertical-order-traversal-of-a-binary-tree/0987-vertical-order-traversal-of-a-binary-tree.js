@@ -13,12 +13,12 @@
 var verticalTraversal = function (root) {
     if (!root) return [];
 
-    let treeMap = new Map();
+    let q = [];
+    q = [[0, 0, root]];
 
-    let max = -Infinity;
+    let map = new Map();
     let min = +Infinity;
-
-    let q = [[0, 0, root]];
+    let max = -Infinity;
 
     while (q.length) {
         let [x, y, node] = q.shift();
@@ -26,29 +26,31 @@ var verticalTraversal = function (root) {
         min = Math.min(min, y);
         max = Math.max(max, y);
 
-        treeMap.set(y, [...(treeMap.get(y) || []), { x, val: node.val }])
-
+        map.set(y, [...(map.get(y) || []), [x,node.val]]);
 
         if (node.left) {
             q.push([x + 1, y - 1, node.left]);
         }
         if (node.right) {
-            q.push([x + 1, y + 1, node.right])
+            q.push([x + 1, y + 1, node.right]);
         }
     }
 
     let res = [];
-
-    //sample output like 0 => [ { x: 0, val: 3 }, { x: 2, val: 15 } ],
-    //we want to sort based on x now
     for (let i = min; i <= max; i++) {
-        let sortedByX = treeMap.get(i).sort((a, b) => {
-            if (a.x === b.x) return a.val - b.val; // Sort by value if row is the same
-            return a.x - b.x; // Otherwise, sort by row index
-        });
-        let array = sortedByX.map((e) => e.val);
-        res.push(array);
+        if (map.has(i)) {
+            // Sort nodes in the same column
+            let columnNodes = map.get(i).sort((a, b) => {
+                if (a[0] !== b[0]) return a[0] - b[0]; // Sort by x (row)
+                return a[1] - b[1]; // If same x, sort by node value
+            });
+
+            // Extract only the node values
+            let columnValues = columnNodes.map(([x, val]) => val);
+            res.push(columnValues);
+        }
     }
 
     return res;
+
 };
