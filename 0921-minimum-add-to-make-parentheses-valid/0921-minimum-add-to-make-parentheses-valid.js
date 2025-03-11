@@ -3,33 +3,19 @@
  * @return {number}
  */
 var minAddToMakeValid = function(s) {
+
     let open = 0;
     let close = 0;
-    let required = 0;
-
-    //forward pass
-    for (let i=0; i<s.length; i++) {
-        if (s[i] === ')') {
-            if (open===0) {
-                required++;
+    for (let char of s) {
+        if (char === '(') close++;
+        else {
+            if (close>0) {
+                close--;
                 continue;
             }
-            open--;
+            open++;
         }
-        else if (s[i] === '(') open++;
     }
 
-    //backward pass 
-    for (let i=s.length; i>=0; i--) {
-        if (s[i]==='(') {
-            if (close ===0) {
-                required++;
-                continue;
-            }
-            close--;
-        }
-        else if (s[i]===')') close++
-    }
-
-    return required;
+    return open+close;
 };
