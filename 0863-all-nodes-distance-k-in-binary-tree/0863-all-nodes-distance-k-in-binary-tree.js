@@ -11,47 +11,43 @@
  * @param {number} k
  * @return {number[]}
  */
-var distanceK = function(root, target, k) {
-    if (k === 0) return [target.val];
+var distanceK = function (root, target, k) {
+    let map = new Map();
+    let q = [];
+    q.push(root);
 
-    let q = [root];
-    let graph = new Map();
-
-     while (q.length) {
+    while (q.length) {
         let node = q.shift();
 
         if (node.left) {
-            if (!graph.has(node)) graph.set(node, []);
-            if (!graph.has(node.left)) graph.set(node.left, []);
-            graph.get(node).push(node.left);
-            graph.get(node.left).push(node);
+            map.set(node.val, [...(map.get(node.val) || []), node.left]);
+            map.set(node.left.val, [...(map.get(node.left.val) || []), node]);
             q.push(node.left);
         }
         if (node.right) {
-            if (!graph.has(node)) graph.set(node, []);
-            if (!graph.has(node.right)) graph.set(node.right, []);
-            graph.get(node).push(node.right);
-            graph.get(node.right).push(node);
-            q.push(node.right);
+            map.set(node.val, [...(map.get(node.val) || []), node.right]);
+            map.set(node.right.val, [...(map.get(node.right.val) || []), node])
+            q.push(node.right)
         }
     }
 
+    q.push([target, 0]);
     let res = [];
-    let visited = new Set([target]);
-    //[target, distance from target]
-    q = [[target,0]];
+    let visited = new Set();
 
     while (q.length) {
         let [node, distance] = q.shift();
 
-        if (distance===k) res.push(node.val);
-        else {
-            if (graph.has(node)) {
-                for (const edge of graph.get(node)) {
-                    if (!visited.has(edge)) {
-                        visited.add(edge);
-                        q.push([edge, distance + 1]);
-                    }
+        if (distance === k) {
+            res.push(node.val);
+        }
+
+        visited.add(node);
+
+        if (map.has(node.val)) {
+            for (let edge of map.get(node.val)) {
+                if (!visited.has(edge)) {
+                    q.push([edge, distance + 1]);
                 }
             }
         }
@@ -59,5 +55,4 @@ var distanceK = function(root, target, k) {
     }
 
     return res;
-
 };
