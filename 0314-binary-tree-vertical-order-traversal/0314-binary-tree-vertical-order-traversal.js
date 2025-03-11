@@ -10,36 +10,29 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var verticalOrder = function (root) {
-    //TIME COMPLEXITY O(N)
-    //SPACE COMPLEXITY O(N)
+var verticalOrder = function(root) {
     if (!root) return [];
 
+    let q = [];
     let map = new Map();
-
-    //initialize queue with 0 as x corrdinate and root
-    let q = [[0, root]];
-    let qlen;
+    q.push([0,root]);
 
     let min = +Infinity;
     let max = -Infinity;
 
     while (q.length) {
-        qlen = q.length;
+        let [x,node] = q.shift();
 
-        //POP FROM THE BEGINNING OF THE QUEUE
-        let [x, node] = q.shift();
+        map.set(x, [...(map.get(x)||[]), node.val]);
 
-        map.set(x, [...(map.get(x) || []), node.val]);
-
-        min = Math.min(min, x);
         max = Math.max(max, x);
+        min = Math.min(min, x);
 
         if (node.left) {
-            q.push([x - 1, node.left])
+            q.push([x-1, node.left]);
         }
         if (node.right) {
-            q.push([x + 1, node.right]);
+            q.push([x+1, node.right]);
         }
     }
 
@@ -47,7 +40,6 @@ var verticalOrder = function (root) {
     for (let i=min; i<=max; i++) {
         res.push(map.get(i));
     }
+
     return res;
-
-
 };
