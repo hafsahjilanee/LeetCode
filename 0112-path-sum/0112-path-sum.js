@@ -12,27 +12,20 @@
  * @return {boolean}
  */
 var hasPathSum = function(root, targetSum) {
-//backtracking used
-    const checkPathSum = (root, total) => {
-        if (!root) {
-            return false;
-        }
-        total+=root.val;
 
-        if (!root.left && !root.right) {
-            if (total === targetSum){
-                return true;
-            }
-        }
-        if (checkPathSum(root.left, total)) {
-            return true;
-        }
-        if (checkPathSum(root.right, total)) {
-            return true;
-        }
-        total -=root.val;
-        return false;
-    }
+    let dfs = (curr, total) => {
+        if (!curr) return false; // If the node is null, no path exists.
 
-    return checkPathSum(root, 0);
+        total += curr.val; // Add current node's value to the total sum.
+
+        // Check if it's a leaf node and the total matches targetSum.
+        if (!curr.left && !curr.right) {
+            return total === targetSum;
+        }
+
+        // Recursively check left and right subtrees.
+        return dfs(curr.left, total) || dfs(curr.right, total);
+    };
+
+    return dfs(root, 0);
 };
