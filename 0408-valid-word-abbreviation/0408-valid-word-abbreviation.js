@@ -4,41 +4,30 @@
  * @return {boolean}
  */
 var validWordAbbreviation = function(word, abbr) {
-    //in the worst case the abbr will be the same length as word so 0(N) time
-    //O(1) no data structures
-
-    if (abbr.length > word.length) {
-        return false;
-    }
-
-    let wordPointer = 0;
-    let abbrPointer = 0;
+    let wordPtr = 0;
+    let abbrPtr = 0;
     let steps = 0;
 
+    while (wordPtr<word.length && abbrPtr<abbr.length) {
+        if (!isNaN(abbr[abbrPtr])) {
+            steps = 0;
 
-    while (wordPointer < word.length && abbrPointer < abbr.length) {
-        if (!isNaN(abbr[abbrPointer])) {
-            //get the entire number but first check for leading zeros
-            if (abbr[abbrPointer]==="0") {
-                return false;
+            if (abbr[abbrPtr] === '0') return false;
+            
+            while (abbrPtr<abbr.length && !isNaN(abbr[abbrPtr])) {
+                steps = steps*10 + Number(abbr[abbrPtr]);
+                abbrPtr++;
             }
-
-            while (abbrPointer<abbr.length && !isNaN(abbr[abbrPointer])) {
-                steps = steps*10 + Number(abbr[abbrPointer]);
-                abbrPointer++;
-            }
-            wordPointer +=steps;
-            steps=0;
+            
+            wordPtr+= steps;
         }
-        else {  // If it's a character
-            if (word[wordPointer] !== abbr[abbrPointer]) {
-                return false;
-            }
-            wordPointer++;
-            abbrPointer++;
+        else {
+            if (abbr[abbrPtr] !== word[wordPtr]) return false
+
+            abbrPtr++;
+            wordPtr++;
         }
     }
-    
-    //make sure the entire abbr and word is parsed
-    return abbrPointer === abbr.length && wordPointer === word.length;
+
+    return wordPtr === word.length && abbrPtr === abbr.length;
 };
