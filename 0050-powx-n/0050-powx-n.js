@@ -4,6 +4,8 @@
  * @return {number}
  */
 var myPow = function(x, n) {
+    //O(log n) time
+    //O(1) space
     if (n===0) return 1;
 
     if (n<0) {
