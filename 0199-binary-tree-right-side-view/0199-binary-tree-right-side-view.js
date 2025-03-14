@@ -10,35 +10,31 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var rightSideView = function(root) {
+var rightSideView = function (root) {
+    if (!root) return [];
+    let q = [];
+    q.push(root);
     let res = [];
-    if(!root) {
-        return res;
-    }
-    let current = root;
 
-    let queue = new Queue();
-    let level = [];
-    
-    queue.push(root);
-    let node;
+    while (q.length) {
+        let size = q.length;
 
-    while (!queue.isEmpty()) {
-        let qLen = queue.size();
-        for (let i=0; i<qLen; i++) {
-            node = queue.pop();
-            level.push(node.val);
-            if (node.left) {
-                queue.push(node.left);
-            }
-            if (node.right) {
-                queue.push(node.right);
+        for (let i = 0; i < size; i++) {
+            let curr = q.shift();
+
+            if (i === size-1) {
+                res.push(curr.val);
             }
 
+            if (curr.left) {
+                q.push(curr.left);
+            }
+            if (curr.right) {
+                q.push(curr.right);
+            }
         }
-        res.push(level.pop());
+
     }
-    
+
     return res;
-    
 };
