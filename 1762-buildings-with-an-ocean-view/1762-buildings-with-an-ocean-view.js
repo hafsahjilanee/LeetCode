@@ -3,16 +3,15 @@
  * @return {number[]}
  */
 var findBuildings = function(heights) {
+    let max = 0;
     let res = [];
-    let maxBuilding = -Infinity;
 
-    for (let i=heights.length-1; i>=0; i--) {
-        if (heights[i] > maxBuilding) {
-            res.push(i);
+    for (let right=heights.length-1; right>=0; right--) {
+        if (heights[right]> max) {
+            res.push(right);
         }
 
-        maxBuilding = Math.max(maxBuilding, heights[i]);
-
+        max = Math.max(max, heights[right]);
     }
 
     return res.reverse();
