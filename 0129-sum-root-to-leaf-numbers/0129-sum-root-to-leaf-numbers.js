@@ -24,8 +24,7 @@ var sumNumbers = function(root) {
             total += parseInt(numString)
         }
 
-        let left = dfs(curr.left, numString);
-        let right = dfs(curr.right, numString);
+        return dfs(curr.left, numString) || dfs(curr.right, numString);
     }
 
     dfs(root, '');
