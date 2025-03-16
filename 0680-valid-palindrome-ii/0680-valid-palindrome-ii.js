@@ -3,21 +3,20 @@
  * @return {boolean}
  */
 var validPalindrome = function(s) {
-    let left =0;
+    let left = 0;
     let right = s.length-1;
-//abcdcea
+
     while (left<right) {
         if (s[left] !== s[right]) {
-            return isPalindrome(s.slice(left+1,right+1)) || isPalindrome(s.slice(left,right))
+            return isPalindrome(s.slice(left+1,right+1)) || isPalindrome(s.slice(left,right));
         }
-
         left++;
         right--;
     }
     return true;
 };
 
-function isPalindrome(word) {
+var isPalindrome = function(word) {
     let left = 0;
     let right = word.length-1;
 
@@ -25,9 +24,9 @@ function isPalindrome(word) {
         if (word[left] !== word[right]) {
             return false;
         }
-
         left++;
         right--;
     }
+
     return true;
 }
