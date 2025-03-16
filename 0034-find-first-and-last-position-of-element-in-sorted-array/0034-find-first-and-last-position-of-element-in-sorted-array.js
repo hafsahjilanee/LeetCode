@@ -9,9 +9,9 @@ var searchRange = function (nums, target) {
     let first = bSearch(nums,0, target, true);
     if (first === -1) return [-1, -1];
 
-    let last = bSearch(nums,first+1,target, false);
+    let last = bSearch(nums,first,target, false);
 
-    return last!==-1 ? [first, last] : [first, first];
+    return [first, last];
 };
 
 var bSearch = function (nums, left, target, isFirst) {
