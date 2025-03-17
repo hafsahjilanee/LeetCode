@@ -6,30 +6,35 @@ var minRemoveToMakeValid = function(s) {
     let sArr = s.split('');
     let open = 0;
 
-    // First pass: Remove extra ')'
-    for (let i = 0; i < sArr.length; i++) {
+    //forward pass
+    for (let i=0; i<sArr.length; i++) {
         if (sArr[i] === '(') {
             open++;
-        } else if (sArr[i] === ')') {
+        }
+        else if (sArr[i] === ')') {
             if (open === 0) {
-                sArr[i] = ''; // Mark for removal
-            } else {
+                sArr[i] = '';
+            }
+            else {
                 open--;
             }
         }
     }
-
-    // Second pass: Remove extra '(' from right
+    
+    //backward pass
     let close = 0;
-    for (let i = sArr.length - 1; i >= 0; i--) {
-        if (sArr[i] === '(') {
+    for (i = sArr.length-1; i>=0; i--) {
+        if (sArr[i] === ')') {
+            close++;
+        }
+        else if (sArr[i] === '(') {
             if (close === 0) {
-                sArr[i] = '';
+                sArr[i] = ''
             }
             else {
                 close--;
             }
-        }else if (sArr[i] === ')') close++;
+        }
     }
 
     return sArr.join('');
