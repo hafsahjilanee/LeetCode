@@ -4,35 +4,28 @@
  */
 var minRemoveToMakeValid = function(s) {
     let open = 0;
-    let close = 0;
-    let res = [];
-
-    //forward pass to check no closing bracket before opening bracket ))((
-    for (const char of s) {
-        if (char === '(') {
-            open++;
+    let toRemove = [];
+    let sArr = s.split('');
+   
+    for (let i=0; i<sArr.length; i++) {
+        if (sArr[i] === '(') {
+            toRemove.push(i);
         }
-        else if (char === ')') {
-            if (open===0) continue;
-            open--;
-        }
-        res.push(char);
+        else if (sArr[i] === ')') {
+            if (toRemove.length) {
+                toRemove.pop();
+                continue;
+            }
+            else {
+                sArr[i] = '';
+            }
+        } 
+    }
+    
+    while (toRemove.length) {
+        sArr[toRemove.pop()] ='';
     }
 
-    let result = [];
 
-    //backward pass to check for opening brackets
-    for (let i=res.length-1; i>=0; i--) {
-        if (res[i] === '(') {
-            if (close === 0) continue;
-            close--;
-        }
-        else if (res[i] === ')') {
-            close++;
-        }
-        
-        result.push(res[i]);
-    }
-
-    return result.reverse().join('');
+    return sArr.join('');
 };
