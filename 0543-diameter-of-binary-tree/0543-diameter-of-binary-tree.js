@@ -11,12 +11,13 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
-    //time complexity is linear O(n)
-    //space complexity O(log n) for balanced tree
-    //space complexity O(n) for unblanced tree
-    let res = 0;
-
-    const dfs = (curr) => {
+    if (!root) return 0;
+//post order traversal
+//explore left, right and then current LRC
+//time O(n)
+//space O(H) => height of subtree is the call stack depth
+    let diameter = 0;
+    let dfs = (curr) => {
         if (!curr) {
             return 0;
         }
@@ -24,9 +25,10 @@ var diameterOfBinaryTree = function(root) {
         let left = dfs(curr.left);
         let right = dfs(curr.right);
 
-        res = Math.max(res, left+right);
-        return 1 + Math.max(left,right);
+        diameter = Math.max(diameter, left+right);
+        return 1+ Math.max(left, right);
     }
-    dfs(root);
-    return res;
+    
+    dfs(root)
+    return diameter;
 };
