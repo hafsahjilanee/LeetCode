@@ -4,31 +4,28 @@
  * @return {number[]}
  */
 var topKFrequent = function(nums, k) {
-    let result = [];
-    nums.sort();
-    let map = new Map();
-    
-    for (let i=0; i<nums.length; i++){
-        if (map.has(nums[i])){
-            map.set(nums[i], map.get(nums[i])+1);
+    if (!nums.length) return [];
+
+    const freqMap = new Map();
+    let count = 0;
+
+    for (let num of nums) {
+        freqMap.set(num, (freqMap.get(num)||0) +1);
+    }
+
+    const bucket = new Array(nums.length+1).fill(null).map(()=> []);
+
+    for (let [nums, freq] of freqMap) {
+        bucket[freq].push(nums);
+    }
+    let res = [];
+    for (let i=bucket.length-1; i>=0; i--) {
+        if (count===k) {
+            return res;
         }
-        else{
-            map.set(nums[i], 1);
+        if (bucket[i].length) {
+            res.push(...bucket[i]);
+            count++
         }
     }
-    
-    //console.log(map);
-    
-    let sortedMap = new Map([...map.entries()].sort((a,b) => b[1] - a[1]));
-
-for (const [key, value] of sortedMap) {
-        result.push(key);
-
-    
-    if (result.length === k) {
-        break;
-    }
-}
-    
-    return result;
 };
