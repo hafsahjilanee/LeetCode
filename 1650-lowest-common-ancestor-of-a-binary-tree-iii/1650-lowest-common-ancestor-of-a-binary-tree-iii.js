@@ -14,33 +14,14 @@
  * @return {_Node}
  */
 var lowestCommonAncestor = function(p, q) {
-    // //time O(n)
-    // //space O(1) nc we're not making any data structure to keep track of nodes that grows with loop
-    // let pCopy = p;
-    // let qCopy = q;
+    //O(1) space solution 
+    let a = p;
+    let b = q;
 
-    // while (pCopy !== qCopy) {
-    //     pCopy = pCopy.parent ?? q;
-    //     qCopy = qCopy.parent ?? p;
-    // }
-
-    // return pCopy;
-    let seen = new Set();
-
-    while (p) {
-        seen.add(p);
-
-        p = p.parent;
+    while (a !== b) {
+        a = a ? a.parent: q;
+        b = b ? b.parent: p;
     }
 
-    while (q) {
-        if (seen.has(q)) {
-            return q;
-        }
-
-        q = q.parent;
-    }
-
-    //this is time O(n)
-    //space O(n) bc we're using set
+    return a;
 };
