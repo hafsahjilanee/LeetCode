@@ -7,7 +7,6 @@ var topKFrequent = function(nums, k) {
     if (!nums.length) return [];
 
     const freqMap = new Map();
-    let count = 0;
 
     for (let num of nums) {
         freqMap.set(num, (freqMap.get(num)||0) +1);
@@ -20,12 +19,11 @@ var topKFrequent = function(nums, k) {
     }
     let res = [];
     for (let i=bucket.length-1; i>=0; i--) {
-        if (count===k) {
+        if (res.length===k) {
             return res;
         }
         if (bucket[i].length) {
             res.push(...bucket[i]);
-            count++
         }
     }
 };
