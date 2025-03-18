@@ -40,4 +40,7 @@ var lowestCommonAncestor = function(p, q) {
 
         q = q.parent;
     }
+
+    //this is time O(n)
+    //space O(n) bc we're using set
 };
