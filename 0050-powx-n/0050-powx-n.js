@@ -4,22 +4,22 @@
  * @return {number}
  */
 var myPow = function(x, n) {
-    //O(log n) time
-    //O(1) space
+//time O(log n) bc we are dividing input by half in each iteration
+//space is O(1)   
     if (n===0) return 1;
 
     if (n<0) {
-        x = 1/x;
-        n= -n;
+        x=1/x;
+        n=-n;
     }
-    let result = 1
+    let res =1;
     while (n>0) {
-        if (n % 2 === 1) {
-            result *= x;
+        if (n%2 === 1) {
+            res *=x;
         }
         x*=x;
-        n = Math.floor(n/2);
-    }
+        n = Math.floor(n/2)
 
-    return result;
+    }
+    return res;
 };
