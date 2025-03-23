@@ -7,17 +7,17 @@ var findDiagonalOrder = function(nums) {
     let queue = [[0, 0]]; // Start from the top-left element
 
     while (queue.length > 0) {
-        let [i, j] = queue.shift();
-        result.push(nums[i][j]);
+        let [r, c] = queue.shift();
+        result.push(nums[r][c]);
 
         // If we are at the start of a diagonal (first column), add the next row
-        if (j === 0 && i + 1 < nums.length) {
-            queue.push([i + 1, j]);
+        if (c === 0 && r + 1 < nums.length) {
+            queue.push([r + 1, c]);
         }
 
         // Always add the next column in the current row (if exists)
-        if (j + 1 < nums[i].length) {
-            queue.push([i, j + 1]);
+        if (c + 1 < nums[r].length) {
+            queue.push([r, c + 1]);
         }
     }
 
