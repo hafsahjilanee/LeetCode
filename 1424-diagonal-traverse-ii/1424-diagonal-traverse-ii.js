@@ -3,6 +3,7 @@
  * @return {number[]}
  */
 var findDiagonalOrder = function(nums) {
+    //O(m*n) space and time
     if (!nums) return [];
     let q = [];
     //push first element
