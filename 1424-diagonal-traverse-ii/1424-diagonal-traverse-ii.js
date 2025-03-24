@@ -3,23 +3,24 @@
  * @return {number[]}
  */
 var findDiagonalOrder = function(nums) {
-    let result = [];
-    let queue = [[0, 0]]; // Start from the top-left element
+    if (!nums) return [];
+    let q = [];
+    //push first element
+    q.push([0,0]);
+    let res = [];
 
-    while (queue.length > 0) {
-        let [r, c] = queue.shift();
-        result.push(nums[r][c]);
+    while (q.length) {
+        let [r,c] = q.shift();
 
-        // If we are at the start of a diagonal (first column), add the next row
-        if (c === 0 && r + 1 < nums.length) {
-            queue.push([r + 1, c]);
+        res.push(nums[r][c]);
+
+        if (c===0 && r+1<nums.length) {
+            q.push([r+1,c]);
         }
-
-        // Always add the next column in the current row (if exists)
-        if (c + 1 < nums[r].length) {
-            queue.push([r, c + 1]);
+        if (c+1 <nums[r].length) {
+            q.push([r, c+1]);
         }
     }
 
-    return result;
+    return res;
 };
