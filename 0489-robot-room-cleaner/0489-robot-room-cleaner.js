@@ -36,6 +36,13 @@
  * @return {void}
  */
 var cleanRoom = function (robot) {
+    //TC, N = number of tiles, M = number of obstacles
+    //so TC O(N-M);
+    //SC for each tile we need to store if it's been visited so visted will have at 
+    // most N-M elements
+    //SC is O(N-M)
+
+
     //dfs+backtracking
     //order is important here bc we want to go up, right, down and left aka clockwise
     let directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
