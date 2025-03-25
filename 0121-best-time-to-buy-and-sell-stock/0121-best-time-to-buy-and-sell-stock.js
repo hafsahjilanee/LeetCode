@@ -3,20 +3,16 @@
  * @return {number}
  */
 var maxProfit = function(prices) {
-    //time O(n)
-    //space O(1)
-    if (prices.length===0) return 0;
+    let maxProfit = 0;
+    let minBuy = prices[0];
 
-    let profit =0;
-    let buy = prices[0];
-    for (let i=1; i<prices.length; i++) {
-        buy = Math.min(buy, prices[i]); //1
+    for (let i = 1; i<prices.length; i++) {
+        minBuy = Math.min(minBuy, prices[i]);
 
-        if (prices[i]>buy) {
-            //also use math.max to keep track of max profit
-            profit = Math.max(profit,prices[i] - buy)
+        if (prices[i]> minBuy) {
+            maxProfit = Math.max(maxProfit, prices[i]-minBuy);
         }
     }
 
-    return profit;
+    return maxProfit;
 };
