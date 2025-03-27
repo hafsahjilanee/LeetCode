@@ -9,30 +9,24 @@
  * @param {ListNode[]} lists
  * @return {ListNode}
  */
-var mergeKLists = function(lists) {
-    let numbers = [];
-    
-    for (let i=0; i<lists.length; i++) {
-        let current = lists[i]
-        while (current !== null) {
-            numbers.push(current.val)
-            current = current.next
-        }
-    }
-    
-    if (numbers.length === 0) {
-        return null;
-    }
-    numbers.sort((a, b) => a - b)
-    
-        let head = new ListNode(numbers[0]);
-        let current = head;
-    
-        for (let i = 1; i < numbers.length; i++) {
-        current.next = new ListNode(numbers[i]);
-        current = current.next;
+
+var mergeKLists = function (lists) {
+    if (!lists || lists.length === 0) return null;
+    const minHeap = new PriorityQueue((a, b) => a.val - b.val);
+
+    for (let list of lists) {
+        if (list) minHeap.enqueue(list);
     }
 
-    return head;
+    let dummy = new ListNode(0);
+    let curr = dummy;
 
+    while (minHeap.size() > 0) {
+        let node = minHeap.dequeue();
+        curr.next = node;
+        curr = curr.next;
+        if (node.next) minHeap.enqueue(node.next);
+    }
+
+    return dummy.next;
 };
