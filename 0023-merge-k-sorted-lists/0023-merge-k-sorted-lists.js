@@ -9,22 +9,23 @@
  * @param {ListNode[]} lists
  * @return {ListNode}
  */
+var mergeKLists = function(lists) {
+    if (!lists || lists.length===0) return null;
 
-var mergeKLists = function (lists) {
-    if (!lists || lists.length === 0) return null;
-    const minHeap = new PriorityQueue((a, b) => a.val - b.val);
+    let minHeap = new PriorityQueue((a,b) => a.val-b.val);
 
-    for (let list of lists) {
+    for (const list of lists) {
         if (list) minHeap.enqueue(list);
     }
 
     let dummy = new ListNode(0);
     let curr = dummy;
 
-    while (minHeap.size() > 0) {
+    while (minHeap.size()>0) {
         let node = minHeap.dequeue();
         curr.next = node;
         curr = curr.next;
+
         if (node.next) minHeap.enqueue(node.next);
     }
 
