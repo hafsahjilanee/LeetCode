@@ -11,23 +11,24 @@
  * @return {number}
  */
 var sumNumbers = function(root) {
-    let total = 0;
+    //TC O(N)
+    //SC O(h)
+    let sum = 0;
+    let dfs = (node, num) => {
+        if (!node) return;
 
-    const dfs = (curr, numString) => {
-        if (!curr) {
+        num += node.val;
+
+        if (!node.left && !node.right) {
+            sum += parseInt(num);
             return;
         }
-        
-        numString+=curr.val;
 
-        if (!curr.left && !curr.right) {
-            total += parseInt(numString)
-        }
-
-        return dfs(curr.left, numString) || dfs(curr.right, numString);
+        dfs(node.left, num)
+        dfs(node.right, num);
     }
 
     dfs(root, '');
 
-    return total;
+    return sum;
 };
