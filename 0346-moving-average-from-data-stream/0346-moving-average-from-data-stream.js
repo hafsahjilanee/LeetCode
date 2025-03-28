@@ -2,9 +2,9 @@
  * @param {number} size
  */
 var MovingAverage = function(size) {
-    this.stream = [];
     this.size = size;
-    this.total = 0;
+    this.stream = [];
+    this.sum = 0;
 };
 
 /** 
@@ -13,15 +13,13 @@ var MovingAverage = function(size) {
  */
 MovingAverage.prototype.next = function(val) {
     this.stream.push(val);
-    this.total+= val;
-
+    this.sum+= val;
     if (this.stream.length > this.size) {
-        let removeFromLeft = this.stream.shift();
-        this.total -= removeFromLeft;    
+        let valToRemove = this.stream.shift();
+        this.sum-= valToRemove;
     }
 
-    return this.total/this.stream.length;
-
+    return this.sum/this.stream.length;
 };
 
 /** 
