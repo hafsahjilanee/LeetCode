@@ -3,27 +3,32 @@
  * @return {number}
  */
 var largestIsland = function (grid) {
-    let islandId = -1;
+    let islandId = 2;
     let islandAreas = {};
     const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
     const ROWS = grid.length;
     const COLS = grid[0].length;
 
-    const dfs = (grid, r, c) => {
-        if (Math.min(r, c) < 0 || r === ROWS || c === COLS || grid[r][c] !== 1) {
+    // DFS to calculate island area and mark cells with islandId
+    const dfs = (r, c) => {
+        if (r < 0 || c < 0 || r >= ROWS || c >= COLS || grid[r][c] !== 1) {
             return 0;
         }
-        grid[r][c] = islandId;
+        grid[r][c] = islandId; // Mark this cell with the islandId
+        let area = 1; // Current cell counts as 1
+        for (let [dr, dc] of directions) {
+            area += dfs(r + dr, c + dc);
+        }
+        return area;
+    };
 
-        return 1 + dfs(grid, r + 1, c) + dfs(grid, r - 1, c) + dfs(grid, r, c + 1) + dfs(grid, r, c - 1);
-    }
-
+    // Step 1: Identify all islands and store their sizes
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
             if (grid[r][c] === 1) {
-                let islandArea = dfs(grid, r, c);
+                let islandArea = dfs(r, c);
                 islandAreas[islandId] = islandArea;
-                islandId--;
+                islandId++; // Move to next unique ID
             }
         }
     }
@@ -35,7 +40,7 @@ var largestIsland = function (grid) {
         for (let c = 0; c < COLS; c++) {
             if (grid[r][c] === 0) {
                 let surrounding = new Set();
-                area = 1
+                let area = 1
 
                 for (let [nr, nc] of directions) {
                     let newRow = r + nr;
