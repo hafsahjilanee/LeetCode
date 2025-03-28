@@ -14,8 +14,8 @@ var largestIsland = function (grid) {
         if (r < 0 || c < 0 || r >= ROWS || c >= COLS || grid[r][c] !== 1) {
             return 0;
         }
-        grid[r][c] = islandId; // Mark this cell with the islandId
-        let area = 1; // Current cell counts as 1
+        grid[r][c] = islandId;
+        let area = 1;
         for (let [dr, dc] of directions) {
             area += dfs(r + dr, c + dc);
         }
@@ -29,37 +29,37 @@ var largestIsland = function (grid) {
             if (grid[r][c] === 1) {
                 let islandArea = dfs(r, c);
                 islandAreas[islandId] = islandArea;
-                islandId++; // Move to next unique ID
-            }
-            else {
+                islandId++;
+            } else if (grid[r][c] === 0) {
                 hasZero = true;
             }
         }
     }
 
     // If no 0s exist, the entire grid is already the largest island
-    if (!hasZero) return ROWS*COLS;
+    if (!hasZero) return ROWS * COLS;
     
     let maxArea = 0;
 
-    //flip each 0 to 1 and calc max area by adding surrounding islands
+    // Flip each 0 to 1 and calculate max area by adding surrounding islands
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
             if (grid[r][c] === 0) {
                 let surrounding = new Set();
-                let area = 1
+                let area = 1;
 
-                for (let [nr, nc] of directions) {
-                    let newRow = r + nr;
-                    let newCol = c + nc;
+                for (let [dr, dc] of directions) {
+                    let newRow = r + dr;
+                    let newCol = c + dc;
 
-                    if (Math.min(newRow, newCol) >= 0 && newRow < ROWS && newCol < COLS && grid[newRow][newCol] !== 0) {
+                    if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS && 
+                        grid[newRow][newCol] !== 0) {
                         surrounding.add(grid[newRow][newCol]);
                     }
                 }
 
-                for (let islandId of surrounding) {
-                    area += islandAreas[islandId]
+                for (let id of surrounding) {
+                    area += islandAreas[id];
                 }
 
                 maxArea = Math.max(maxArea, area);
@@ -67,5 +67,5 @@ var largestIsland = function (grid) {
         }
     }
 
-    return maxArea || ROWS * COLS;
+    return maxArea;
 };
