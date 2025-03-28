@@ -23,6 +23,7 @@ var largestIsland = function (grid) {
     };
 
     // Step 1: Identify all islands and store their sizes
+    let hasZero = false;
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
             if (grid[r][c] === 1) {
@@ -30,9 +31,15 @@ var largestIsland = function (grid) {
                 islandAreas[islandId] = islandArea;
                 islandId++; // Move to next unique ID
             }
+            else {
+                hasZero = true;
+            }
         }
     }
 
+    // If no 0s exist, the entire grid is already the largest island
+    if (!hasZero) return ROWS*COLS;
+    
     let maxArea = 0;
 
     //flip each 0 to 1 and calc max area by adding surrounding islands
