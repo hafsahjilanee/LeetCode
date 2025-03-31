@@ -3,8 +3,8 @@
  * @return {string[][]}
  */
 var accountsMerge = function (accounts) {
-    //TC
-    //SC
+    //TC O(N × K log K)
+    //SC O(N × K)
     //key email, value: all emails it's connected to
     let graph = new Map();
     let emailToName = {};
