@@ -11,43 +11,37 @@
  * @param {_Node} root
  * @return {_Node}
  */
-var treeToDoublyList = function (root) {
+var treeToDoublyList = function(root) {
     //TC O(N) we have to touch each node
     //SC size of recursive stack O(h) where h is tree height
 
     //in order traversal LCR
     if (!root) return null;
+    let first = null;
+    let last = null;
 
-    //keep track of first element and last element so you can link both of them in the end
-    this.first = null;
-    this.last = null;
+    let inOrderLink = (node) => {
+        if (!node) return
 
-    const inorderLink = (node) => {
-        //we need to get to left most node in our tree
-        if (!node) return;  // Base case: stop if node is null
+        inOrderLink(node.left);
 
-        // Recurse left
-        inorderLink(node.left);
-
-        // Process current node
         if (!last) {
-            // First node in traversal (smallest element)
+            //first node of ll
             first = node;
-        } else {
-            // Link current node with previous node
+        }
+        else {
             node.left = last;
             last.right = node;
         }
-        last = node;
 
-        // Recurse right
-        inorderLink(node.right);
+        last = node;
+        inOrderLink(node.right);
     }
 
-    inorderLink(root);
+    inOrderLink(root);
 
-    this.first.left = this.last;
-    this.last.right = this.first;
+    first.left = last;
+    last.right = first;
 
-    return this.first;
+    return first;
 };
