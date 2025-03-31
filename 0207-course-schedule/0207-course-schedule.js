@@ -3,46 +3,40 @@
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
-var canFinish = function(numCourses, prerequisites) {
-    //complexity O(n+prereq)
-    let map = new Map();
-    //numOfCourses are also courses
-    for (let i=0; i<numCourses; i++) {
-        map.set(i, []);
+var canFinish = function (numCourses, prerequisites) {
+    let graph = new Map();
+
+    for (let [course, prereq] of prerequisites) {
+        if (!graph.has(course)) {
+            graph.set(course, new Set());
+        }
+        graph.get(course).add(prereq);
     }
-    for (const [course, prereq] of prerequisites) {
-        map.get(course).push(prereq);
-    }
+
     let visited = new Set();
-    let onPath = new Set();
+    let visiting = new Set();
 
-    const dfs = (course) => {
-        //course has already been visited, skip
-        if (visited.has(course)) {
-            return true;
-        }
+    let dfs = (node) => {
+        if (visited.has(node)) return true; //already processed skip
+        if (visiting.has(node)) return false; //cycle detected
 
-        //course found on current path
-        if (onPath.has(course)) {
-            return false;
-        }
+        visiting.add(node);
 
-        onPath.add(course);
-        for (const prereq of map.get(course)) {
-            if (!dfs(prereq)) {
-                return false;
+        if (graph.has(node)) { // Ensure the node exists in the graph
+            for (const nei of graph.get(node)) {
+                if (!dfs(nei)) return false;
             }
         }
-
-        onPath.delete(course);
-        visited.add(course);
-        return true
+        visiting.delete(node);
+        visited.add(node);
+        return true;
     }
 
-    for (let i =0; i<numCourses; i++) {
-        if (!dfs(i)) {
+    for (let i = 0; i < numCourses; i++) {
+        if (!visited.has(i) && !dfs(i)) {
             return false;
         }
     }
+
     return true;
 };
