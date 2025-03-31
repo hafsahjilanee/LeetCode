@@ -14,14 +14,17 @@
  * @return {_Node}
  */
 var lowestCommonAncestor = function(p, q) {
-    //O(1) space solution 
-    let a = p;
-    let b = q;
+    let seen = new Set();
 
-    while (a !== b) {
-        a = a ? a.parent: q;
-        b = b ? b.parent: p;
+    while (p) {
+        seen.add(p);
+        p = p.parent;
     }
 
-    return a;
+    while (q) {
+        if (seen.has(q)) {
+            return q;
+        }
+        q =q.parent;
+    }
 };
