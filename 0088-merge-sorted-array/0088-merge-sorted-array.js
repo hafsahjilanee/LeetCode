@@ -6,14 +6,12 @@
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 var merge = function(nums1, m, nums2, n) {
-    //TC O(m+n)
-    //space O(1) bc we are modfiying nums1 in place
     let i = m-1;
     let j = n-1;
     let k = m+n-1;
 
     while (j>=0) {
-        if (nums1[i]> nums2[j]) {
+        if (nums1[i]>nums2[j]) {
             nums1[k] = nums1[i];
             i--;
         }
