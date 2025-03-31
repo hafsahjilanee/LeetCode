@@ -9,22 +9,15 @@ var mergeAlternately = function(word1, word2) {
 
     let i = 0;
     let j = 0;
-    let res = [];
-    while (i<word1.length && j<word2.length) {
-        res.push(word1[i], word2[j]);
-        i++;
-        j++;
+    let result = [];
+    while (i < word1.length || j < word2.length) {
+        if (i < word1.length) {
+            result.push(word1[i++]);
+        }
+        if (j < word2.length) {
+            result.push(word2[j++]);
+        }
     }
-
-    while (i<word1.length) {
-        res.push(word1[i]);
-        i++;
-    };
-
-    while (j<word2.length) {
-        res.push(word2[j]);
-        j++;
-    }
-
-    return res.join('');
+    
+    return result.join('');
 };
