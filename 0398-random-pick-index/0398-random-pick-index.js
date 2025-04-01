@@ -2,14 +2,8 @@
  * @param {number[]} nums
  */
 var Solution = function(nums) {
-    this.indexMap = new Map();
-
-    for (let i=0; i<nums.length; i++) {
-        if (!this.indexMap.has(nums[i])) {
-            this.indexMap.set(nums[i], []);
-        }
-        this.indexMap.get(nums[i]).push(i);
-    }
+    //O(1) space solution
+    this.nums = nums;
 };
 
 /** 
@@ -17,10 +11,17 @@ var Solution = function(nums) {
  * @return {number}
  */
 Solution.prototype.pick = function(target) {
-    let indices = this.indexMap.get(target);
-
-    const randomIndex = Math.floor(Math.random() * indices.length);
-    return indices[randomIndex];
+    let count = 0;
+    let pickIndex = 0;
+    for (let i=0; i<this.nums.length; i++) {
+        if (this.nums[i] === target) {
+            count++; 
+            if (Math.floor(Math.random() * count) === 0) {
+                pickIndex = i; 
+            }
+        }
+    }
+    return pickIndex;
 };
 
 /** 
