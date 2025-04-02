@@ -10,31 +10,32 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var rightSideView = function (root) {
+var rightSideView = function(root) {
+    //tc O(n) where n is the number of nodes in the tree
+    //sc O(d) Where D is the diameter of the tree (maximum width at any level).
     if (!root) return [];
+
     let q = [];
     q.push(root);
     let res = [];
 
     while (q.length) {
-        let size = q.length;
+        let qLen = q.length;
 
-        for (let i = 0; i < size; i++) {
-            let curr = q.shift();
+        for (let i=0; i<qLen; i++) {
+            let node = q.shift();
 
-            if (i === size-1) {
-                res.push(curr.val);
+            if (i===qLen-1) {
+                res.push(node.val);
             }
 
-            if (curr.left) {
-                q.push(curr.left);
+            if (node.left) {
+                q.push(node.left)
             }
-            if (curr.right) {
-                q.push(curr.right);
+            if (node.right) {
+                q.push(node.right);
             }
         }
-
     }
-
     return res;
 };
