@@ -2,11 +2,14 @@
  * @param {number[]} w
  */
 var Solution = function(w) {
+    //TC O(log n)
+    //SC O(1)
     this.cumulativeWeights = [];
     this.totalWeight = 0;
+    this.w = w;
 
-    for (let i of w) {
-        this.totalWeight += i;
+    for (let item of w) {
+        this.totalWeight += item;
         this.cumulativeWeights.push(this.totalWeight);
     }
 };
@@ -15,18 +18,18 @@ var Solution = function(w) {
  * @return {number}
  */
 Solution.prototype.pickIndex = function() {
-    let r = Math.random() * this.totalWeight;
+    //generate number between 0 and w.length-1
+    let r = Math.floor(Math.random() * this.totalWeight);
 
     let left = 0;
-    let right = this.cumulativeWeights.length -1;
+    let right = this.w.length-1;
 
-    while (left<right) {
+    while (left < right) {
         let mid = Math.floor((left+right)/2);
 
-        if (this.cumulativeWeights[mid]<r) {
-            left = mid+1
-        }
-        else {
+        if (this.cumulativeWeights[mid] <= r) {  // Fix: Use `<=` for inclusivity.
+            left = mid + 1;
+        } else {
             right = mid;
         }
     }
