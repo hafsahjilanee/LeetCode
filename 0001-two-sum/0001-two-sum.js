@@ -5,16 +5,17 @@
  */
 var twoSum = function(nums, target) {
     let map = new Map();
-    let complement =0;
-    let result = [];
+    let res = [];
+
     for (let i=0; i<nums.length; i++) {
-        complement = target - nums[i];
+        let complement = target - nums[i];
         if (map.has(complement)) {
-            result.push(i);
-            result.push(map.get(complement));
-            return result;
+            res.push(i);
+            res.push(map.get(complement));
+            return res;
         }
-        
         map.set(nums[i], i);
     }
+
+    return [];
 };
