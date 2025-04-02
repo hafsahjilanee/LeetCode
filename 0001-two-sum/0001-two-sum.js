@@ -4,6 +4,7 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
+    //TC AND SC O(n) for both
     let map = new Map();
     let res = [];
 
