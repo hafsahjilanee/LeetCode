@@ -3,27 +3,30 @@
  * @param {string} s
  * @return {string}
  */
-var customSortString = function(order, s) {
+var customSortString = function (order, s) {
+    // Time Complexity: O(N)
+    // Space Complexity: O(N)
     let map = new Map();
 
     for (let char of s) {
-        map.set(char, (map.get(char)||0)+1);
+        map.set(char, (map.get(char) || 0) + 1);
     }
 
     let res = '';
-    for (let orderItem of order) {
-        let freq = map.get(orderItem);
-        for (let i=0; i<freq; i++) {
-            res+=orderItem;
+    for (let o of order) {
+        let freq = map.get(o);
+        for (let i = 0; i < freq; i++) {
+            res += o;
         }
-        map.delete(orderItem);
+        map.delete(o);
     }
 
-    // Append remaining characters that are not in `order`
-    for (let [char, freq] of map.entries()) {
+    //add remaining chars
+    for (let [char, freq] of map) {
         for (let i = 0; i < freq; i++) {
             res += char;
-        }
+        };
+        map.delete(char);
     }
 
     return res;
