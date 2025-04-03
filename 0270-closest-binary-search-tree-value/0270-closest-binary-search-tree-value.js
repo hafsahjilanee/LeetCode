@@ -12,6 +12,8 @@
  * @return {number}
  */
 var closestValue = function(root, target) {
+    //TC O(h) where h is the height of the BST
+    //SC O(1)
     let closest = root.val;
 
     let curr = root;
