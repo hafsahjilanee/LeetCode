@@ -14,7 +14,7 @@ var findMissingRanges = function(nums, lower, upper) {
     }
     for (let i=1; i<nums.length; i++) {
         let low = Infinity;
-        let max = Infinity;
+        let high = Infinity;
         if (Math.abs(nums[i]-nums[i-1]) !== 1) {
             low = nums[i-1] +1;
             high = nums[i] - 1;
