@@ -4,36 +4,36 @@
  * @return {boolean}
  */
 var validWordAbbreviation = function(word, abbr) {
-    //space O(N) space
-    //O(1) time
-
+    //TC O(n)
+    //SC 0(1)
     let wordPtr = 0;
     let abbrPtr = 0;
-    let steps = 0;
-    if (word.length < abbr.length) {
-        return false;
-    }
 
-    while (wordPtr < word.length && abbrPtr < abbr.length) {
+    if (abbr.length > word.length) return false;
+
+    while (wordPtr<word.length || abbrPtr<abbr.length) {
         if (!isNaN(abbr[abbrPtr])) {
-            steps = 0;
+            let steps = 0;
+
+            //leading 0s are not allowed
             if (abbr[abbrPtr] === '0') {
-                return false;
+                return false
             }
-            while (abbrPtr < abbr.length && !isNaN(abbr[abbrPtr])) {
-                steps = steps*10 + Number(abbr[abbrPtr]);
+
+            while (abbrPtr< abbr.length && !isNaN(abbr[abbrPtr])) {
+                steps = steps*10 + parseInt(abbr[abbrPtr]);
                 abbrPtr++;
             }
 
             wordPtr += steps;
+            continue;
         }
-        else {
-            if (word[wordPtr] !== abbr[abbrPtr]) {
-                return false;
-            }
-            wordPtr++;
-            abbrPtr++;
+        else if (abbr[abbrPtr] !== word[wordPtr]) {
+            return false;
         }
+        abbrPtr++;
+        wordPtr++;
     }
+
     return wordPtr === word.length && abbrPtr === abbr.length;
 };
