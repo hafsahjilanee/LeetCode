@@ -4,6 +4,9 @@
  * @return {number}
  */
 var minEatingSpeed = function(piles, h) {
+    //TC O(log n) * summing hours 
+    // O (n log n)
+    //SC O(1)
     let left = 1;
     let right = Math.max(...piles);
     let hoursTaken = 0;
