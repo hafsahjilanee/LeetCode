@@ -11,24 +11,25 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
+    //TC O(n)
+    //space O(h)
     if (!root) return 0;
-//post order traversal
-//explore left, right and then current LRC
-//time O(n)
-//space O(H) => height of subtree is the call stack depth
-    let diameter = 0;
+    //LRC post order traversal
+    let max =0;
     let dfs = (curr) => {
-        if (!curr) {
-            return 0;
-        }
+        if (!curr) return 0;
 
         let left = dfs(curr.left);
         let right = dfs(curr.right);
 
-        diameter = Math.max(diameter, left+right);
-        return 1+ Math.max(left, right);
+        max = Math.max(max, left+right);
+
+        return 1 + Math.max(left,right)
     }
-    
-    dfs(root)
-    return diameter;
+
+    dfs(root);
+    return max;
+
+
+
 };
