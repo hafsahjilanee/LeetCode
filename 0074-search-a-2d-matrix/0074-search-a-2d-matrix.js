@@ -13,7 +13,9 @@ var searchMatrix = function (matrix, target) {
 
     while (left <= right) {
         const mid = Math.floor((left + right) / 2);
+        //how many complete rows fit
         const row = Math.floor(mid / COLS);
+        //offset within the row
         const col = mid % COLS;
         const midVal = matrix[row][col];
 
