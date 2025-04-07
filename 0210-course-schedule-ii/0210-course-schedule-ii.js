@@ -3,56 +3,45 @@
  * @param {number[][]} prerequisites
  * @return {number[]}
  */
-var findOrder = function(numCourses, prerequisites) {
-    //topological sort
-    //initialize prereqs map
-    let map = new Map();
+var findOrder = function (numCourses, prerequisites) {
+    let graph = new Map();
     for (let i=0; i<numCourses; i++) {
-        map.set(i,[])
+        graph.set(i, []);
     }
-
     for (let [course, prereq] of prerequisites) {
-        map.get(course).push(prereq);
+        graph.set(prereq, [...(graph.get(prereq) || []), course]);
     }
 
-    let visited = new Set(); //completely processed nodes
-    let onPath = new Set(); //the nodes on the current path
+    let visiting = new Set();
+    let visited = new Set();
     let res = [];
+    let dfs = (node) => {
+        if (visited.has(node)) return true;
+        if (visiting.has(node)) return false;
 
-    const dfs = (course) => {
-        console.log('course', course);
-        //already visited
-        if (visited.has(course)) {
-            return true;
-        }
+        visiting.add(node);
 
-        //found on the same path
-        if (onPath.has(course)) {
-            return false;
-        }
-
-        //add to the path
-        onPath.add(course);
-       
-        for (let prereq of map.get(course)) {
-            if (!dfs(prereq)) {
-                return false;
+        if (graph.get(node)) {
+            for (let nei of graph.get(node)) {
+                if (!dfs(nei)) {
+                    return false;
+                }
             }
         }
-        
-        onPath.delete(course);
-        visited.add(course);
-        res.push(course);
-    
-        return true;
 
+        visiting.delete(node);
+        visited.add(node);
+        res.push(node);
+        return true;
     }
 
-    for (let i=0; i<numCourses; i++) {
-        if (!dfs(i)) {
-            return [];
+    for (let i = 0; i < numCourses; i++) {
+        if (!visited.has(i)) {
+            if (!dfs(i)) {
+                return []; //cycle detected
+            }
         }
     }
-   
-    return res;
+
+    return res.reverse();
 };
