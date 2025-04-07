@@ -5,24 +5,25 @@
  * @return {number[][]}
  */
 var findMissingRanges = function(nums, lower, upper) {
+    //O(n) tc
+    //0(1) excluding missingRanges array
     if (!nums.length) return [[lower,upper]];
 
     let missingRanges = [];
 
-    if (lower < nums[0]) {
-        missingRanges.push([lower, nums[0]-1]);
+    if (nums[0]>lower) {
+        missingRanges.push([lower,nums[0]-1]);
     }
-    for (let i=1; i<nums.length; i++) {
-        let low = Infinity;
-        let high = Infinity;
-        if (Math.abs(nums[i]-nums[i-1]) !== 1) {
-            low = nums[i-1] +1;
-            high = nums[i] - 1;
-            missingRanges.push([low,high]);
+    let curr = 0;
+    for (let i=0; i<nums.length-1; i++) {
+        if (nums[i+1]-nums[i] >1) {
+            missingRanges.push([nums[i]+1, nums[i+1]-1]);
         }
     }
-    if (upper>nums[nums.length-1]) {
+
+    if (upper > nums[nums.length-1]) {
         missingRanges.push([nums[nums.length-1]+1, upper]);
     }
- return missingRanges;
+
+    return missingRanges;
 };
