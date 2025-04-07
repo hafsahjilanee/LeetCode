@@ -3,39 +3,23 @@
  * @param {number} target
  * @return {boolean}
  */
-var searchMatrix = function(matrix, target) {
-    for (const mat of matrix) {
-        if (binarySearch(mat,target)) {
-            return true;
-        }
-        else {
-            continue;
-        }
+var searchMatrix = function (matrix, target) {
+    //tc O(log(m * n))
+    //Since binary search runs in O(log N) time, and you’re searching in m * n elements, it becomes O(log(m * n)).
+    //sc O(1)
+    if (matrix.length === 0 || matrix[0].length === 0) return false;
+    const ROWS = matrix.length, COLS = matrix[0].length;
+    let left = 0, right = ROWS * COLS - 1;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        const row = Math.floor(mid / COLS);
+        const col = mid % COLS;
+        const midVal = matrix[row][col];
+
+        if (midVal === target) return true;
+        else if (midVal < target) left = mid + 1;
+        else right = mid - 1;
     }
     return false;
 };
-    
-var binarySearch = function(array, target) {
-    let left = 0;
-    let right = array.length-1;
-    let middle;
-    
-    if (target< array[0] || target>array[array.length-1]) {
-        return false;
-    }
-    
-    while (left<=right) {
-        middle = Math.floor((left+right)/2);
-        
-        if (array[middle]>target) {
-            right = middle -1;
-        }
-        else if (array[middle]<target) {
-            left = middle + 1;
-        }
-        else {
-            return true;
-        }
-    }
-    return false;
-}
