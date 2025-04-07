@@ -4,6 +4,9 @@
  * @return {number[][]}
  */
 var intervalIntersection = function(firstList, secondList) {
+    //TC O(N+M)
+    //SC O(1) minus the res array
+
     //interval A is completely inside interval B
     //interval B is completely inside of A
     //the end point, so if B starts at a certain value and A ends that value, we'll include said num
