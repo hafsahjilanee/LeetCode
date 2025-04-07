@@ -18,7 +18,7 @@ var findOrder = function(numCourses, prerequisites) {
     let visited = new Set(); //completely processed nodes
     let onPath = new Set(); //the nodes on the current path
     let res = [];
-    console.log('map', map)
+
     const dfs = (course) => {
         console.log('course', course);
         //already visited
@@ -33,18 +33,17 @@ var findOrder = function(numCourses, prerequisites) {
 
         //add to the path
         onPath.add(course);
-        console.log('onPath', onPath);
+       
         for (let prereq of map.get(course)) {
-            console.log("hereee")
             if (!dfs(prereq)) {
                 return false;
             }
         }
-        console.log("-----")
+        
         onPath.delete(course);
         visited.add(course);
         res.push(course);
-        console.log(res);
+    
         return true;
 
     }
@@ -54,6 +53,6 @@ var findOrder = function(numCourses, prerequisites) {
             return [];
         }
     }
-    console.log("resss", res)
+   
     return res;
 };
