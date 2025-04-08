@@ -35,22 +35,12 @@
  * @param {Robot} robot
  * @return {void}
  */
-var cleanRoom = function (robot) {
-    //TC, N = number of tiles, M = number of obstacles
-    //so TC O(N-M);
-    //SC for each tile we need to store if it's been visited so visted will have at 
-    // most N-M elements
-    //SC is O(N-M)
+var cleanRoom = function(robot) {
+    
+    //clockwise
+    let directions = [[-1,0], [0,1], [1,0], [0,-1]]
 
-
-    //dfs+backtracking
-    //order is important here bc we want to go up, right, down and left aka clockwise
-    let directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
-    let visited = new Set();
-
-    //robot should always be looking up
     const goBack = () => {
-        //go 180 degrees
         robot.turnRight();
         robot.turnRight();
         robot.move();
@@ -58,24 +48,23 @@ var cleanRoom = function (robot) {
         robot.turnRight();
     }
 
-    const backtrack = (x, y, direction) => {
-        visited.add(`${x},${y}`);
+    let visited = new Set(); //processed nodes
+     
+    let dfs = (x,y,direction) => {
         robot.clean();
+        visited.add(`${x},${y}`);
 
-        for (let i = 0; i < 4; i++) {
-            let newDirection = (direction + i) % 4;
+        for (let i=0; i<4; i++) {
+            let newDirection = (direction+i) % 4;
+            let nr = x+directions[newDirection][0];
+            let nc = y+directions[newDirection][1];
 
-            let [dx, dy] = directions[newDirection];
-            let newX = x + dx;
-            let newY = y + dy;
-
-            if (!visited.has(`${newX},${newY}`) && robot.move()) {
-                backtrack(newX, newY, newDirection);
-                //undo what we just did
-                goBack()
+            if (!visited.has(`${nr},${nc}`) && robot.move()) {
+                dfs(nr,nc, newDirection);
+                goBack();
             }
-            robot.turnRight()
+            robot.turnRight();
         }
     }
-    backtrack(0, 0, 0)
+    dfs(0,0,0);
 };
