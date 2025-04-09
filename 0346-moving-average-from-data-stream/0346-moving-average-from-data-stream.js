@@ -13,10 +13,11 @@ var MovingAverage = function(size) {
  */
 MovingAverage.prototype.next = function(val) {
     this.stream.push(val);
-    this.sum+= val;
-    if (this.stream.length > this.size) {
-        let valToRemove = this.stream.shift();
-        this.sum-= valToRemove;
+    this.sum += val;
+
+    if (this.stream.length>this.size) {
+        let removeVal = this.stream.shift();
+        this.sum -= removeVal;
     }
 
     return this.sum/this.stream.length;
