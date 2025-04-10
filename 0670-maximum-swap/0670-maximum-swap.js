@@ -3,6 +3,8 @@
  * @return {number}
  */
 var maximumSwap = function(num) {
+    //TC O(n)
+    //SC O(n)
     if (num<11) return num;
 
     let numsArr = num.toString().split('');
