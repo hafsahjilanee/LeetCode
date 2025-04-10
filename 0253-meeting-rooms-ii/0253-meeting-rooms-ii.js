@@ -3,6 +3,8 @@
  * @return {number}
  */
 var minMeetingRooms = function(intervals) {
+    //TC n log n bc of sorting
+    //SC O(n)
     let startTimes = intervals.map((e)=> e[0]).sort((a,b)=>a-b);
     let endTimes = intervals.map((e)=> e[1]).sort((a,b)=>a-b);
 
