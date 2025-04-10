@@ -2,67 +2,73 @@
  * @param {number[][]} grid
  * @return {number}
  */
-var largestIsland = function (grid) {
-    let islandId = 2;
-    let islandAreas = {};
-    const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+var largestIsland = function(grid) {
+    //TC O(n^2)
+    //SC O(n^2)
+    const directions = [[-1,0], [0,1], [1,0], [0,-1]];
     const ROWS = grid.length;
     const COLS = grid[0].length;
+    let islandId = 2;
+    let islandArea = {};
 
-    // DFS to calculate island area and mark cells with islandId
-    const dfs = (r, c) => {
-        if (r < 0 || c < 0 || r >= ROWS || c >= COLS || grid[r][c] !== 1) {
+    let dfs = (r,c) => {
+        if (r<0 || c<0 || r===ROWS || c===COLS || grid[r][c] !==1) {
             return 0;
         }
-        grid[r][c] = islandId;
         let area = 1;
-        for (let [dr, dc] of directions) {
-            area += dfs(r + dr, c + dc);
-        }
-        return area;
-    };
+        grid[r][c] = islandId; // ✅ Mark before DFS
 
-    // Step 1: Identify all islands and store their sizes
+        for (let [dr, dc] of directions) {
+            let nr = r+dr;
+            let nc = c+dc;
+
+            area += dfs(nr, nc);
+        }
+
+        return area;
+    }
+
     let hasZero = false;
-    for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
+
+    for (let r=0; r<ROWS; r++) {
+        for (let c=0; c<COLS; c++) {
             if (grid[r][c] === 1) {
-                let islandArea = dfs(r, c);
-                islandAreas[islandId] = islandArea;
+                //calculate area 
+                let area = dfs(r,c)
+                islandArea[islandId] = area;
                 islandId++;
-            } else if (grid[r][c] === 0) {
+            }
+            else if (grid[r][c] === 0) {
                 hasZero = true;
             }
         }
     }
 
-    // If no 0s exist, the entire grid is already the largest island
-    if (!hasZero) return ROWS * COLS;
-    
+    //means our grid is only made up of 1's
+    if (!hasZero) return ROWS*COLS;
+
     let maxArea = 0;
 
-    // Flip each 0 to 1 and calculate max area by adding surrounding islands
-    for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
+    for (let r=0; r<ROWS; r++) {
+        for (let c=0; c<COLS; c++) {
             if (grid[r][c] === 0) {
+                let currentArea = 1;
                 let surrounding = new Set();
-                let area = 1;
 
-                for (let [dr, dc] of directions) {
-                    let newRow = r + dr;
-                    let newCol = c + dc;
+                for (let [dr,dc] of directions) {
+                    let nr = r+dr;
+                    let nc = c+dc;
 
-                    if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS && 
-                        grid[newRow][newCol] !== 0) {
-                        surrounding.add(grid[newRow][newCol]);
+                    if (nr>=0 && nc>=0 && nr<ROWS && nc<COLS && grid[nr][nc] !==0) {
+                        surrounding.add(grid[nr][nc]);
                     }
                 }
 
-                for (let id of surrounding) {
-                    area += islandAreas[id];
-                }
+                for (let islandId of surrounding) {
+                    currentArea += islandArea[islandId];
+                } 
 
-                maxArea = Math.max(maxArea, area);
+                maxArea = Math.max(maxArea, currentArea);
             }
         }
     }
