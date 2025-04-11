@@ -23,12 +23,14 @@ var insert = function (head, insertVal) {
     let curr = head;
 
     while (curr.next !== head) {
+        //case 2 insertion bw two nodes
         if (insertVal >= curr.val && insertVal <= curr.next.val) {
             newNode.next = curr.next;
             curr.next = newNode;
             return head;
         }
         //we know we are at edge if next value is less than curr value
+        //case 3 insertion between two nodes on edge
         else if (curr.next.val < curr.val) {
             //for highest value and for lowest value
             if (insertVal >= curr.val || insertVal <= curr.next.val) {
