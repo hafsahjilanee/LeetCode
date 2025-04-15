@@ -3,35 +3,39 @@
  * @param {number} k
  * @return {number}
  */
-var findKthPositive = function(arr, k) {
-    let res = [];
-    let missingNum = 1;
-    while (arr[0]>1 && arr[0]-missingNum !==0) {
-        res.push(missingNum);
-        missingNum++;
+var findKthPositive = function (arr, k) {
+    //TC O(n) in worst case we'll have to iterate over all elements
+    //SC O(1) we only using a few extra variables
+    if (arr[0] !== 1) {
+        //e.g if k=3 and arr [5,6,7] then result will be 3
+        if (arr[0] - 1 >= k) {
+            return k;
+        }
+        else {
+            //find missing k elements
+            k -= arr[0] - 1;
+        }
     }
-    for (let i=0; i<arr.length-1; i++) {
-        if (arr[i+1]-arr[i] > 1) {
-            let num = arr[i] + 1;
-            while (arr[i+1] - num >= 1) {
-                res.push(num);
-                num++;
+
+    let i = 0;
+
+    while (i < arr.length - 1) {
+        let diff = arr[i + 1] - arr[i];
+
+        if (diff !== 1) {
+            for (let j = arr[i] + 1; j < arr[i + 1]; j++) {
+                //k stores how many more elements we need to find 
+                k -= 1;
+
+                if (!k) {
+                    return j;
+                }
             }
         }
-
-        if (res.length && res[k-1]) {
-            return res[k-1];
-        }
+        i++;
     }
 
-    missingNum = arr[arr.length-1] + 1;
-    while (k>0) {
-        res.push(missingNum);
-        missingNum++;
-
-        if (res.length && res[k-1]) {
-            return res[k-1];
-        }
+    if (k) {
+        return arr[arr.length - 1] + k
     }
-
 };
