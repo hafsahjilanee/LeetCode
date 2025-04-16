@@ -11,6 +11,8 @@
  * @return {number}
  */
 var maxPathSum = function(root) {
+    //TC O(n) bc we touch each node at least once
+    //SC 0(N) in worst case, 0(log n) in best case
     if (!root) return 0;
 
     let maxPathSum = root.val;
