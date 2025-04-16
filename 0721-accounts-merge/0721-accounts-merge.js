@@ -2,7 +2,7 @@
  * @param {string[][]} accounts
  * @return {string[][]}
  */
-var accountsMerge = function(accounts) {
+var accountsMerge = function (accounts) {
     //N = #accounts, K = avg #emails per account. DFS is O(NK), and sorting is O(NK log NK).
     //O(NK) Storing the graph and visited emails.
     let graph = new Map();
@@ -11,14 +11,16 @@ var accountsMerge = function(accounts) {
     for (const account of accounts) {
         let name = account[0];
 
-        for (let i=1; i<account.length; i++) {
-            
+        for (let i = 1; i < account.length; i++) {
+
             if (!graph.has(account[i])) {
                 graph.set(account[i], new Set());
             }
 
-            graph.get(account[1]).add(account[i]);
-            graph.get(account[i]).add(account[1]);
+            if (i > 1) { // we do not want to connect to itself
+                graph.get(account[1]).add(account[i]);
+                graph.get(account[i]).add(account[1]);
+            }
 
             emailToName[account[i]] = name;
         }
