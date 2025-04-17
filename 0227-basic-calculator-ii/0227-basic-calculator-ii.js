@@ -3,44 +3,46 @@
  * @return {number}
  */
 var calculate = function(s) {
-    let str = s.trim();
+    //TC O(n)
+    //SC O(1)
     let curr_operation = '+';
-    let res = 0;
     let prev = 0;
-
-    for (let i=0; i<str.length; i++) {
-        if (str[i] === ' ') continue;
-        if (!isNaN(str[i])) {
-            let number =0;
+    let res = 0;
+    
+    for (let i=0; i<s.length; i++) {
+        if (s[i]===' ') continue;
+        if (!isNaN(s[i])) {
+            let num = 0;
             //extract the entire number
-            while (i < str.length && str[i] !== ' ' && !isNaN(str[i])) {
-                number = number*10 + parseInt(str[i]);
+            while (i<s.length && s[i] !== ' ' && !isNaN(s[i])) {
+                num = num*10 + parseInt(s[i]);
                 i++;
             }
             i--;
 
-            if (curr_operation === '+') {
-                res += number;
-                prev = number;
+            if (curr_operation === "+") {
+                res += num;
+                prev = num;
             }
-            else if (curr_operation === '-') {
-                res -= number;
-                prev = -number;
+            else if (curr_operation === "-") {
+                res -= num;
+                prev = -num;
+            }
 
-            }
-            else if (curr_operation === '*') {
+            else if (curr_operation === "*") {
                 res -= prev;
-                prev = prev*number;
+                prev = prev*num;
                 res += prev;
             }
-            else if (curr_operation === '/') {
-                res -=prev;
-                prev = Math.trunc(prev/number);
+            else if (curr_operation === "/") {
+                res -= prev;
+                prev = Math.trunc(prev/num);
                 res += prev;
+
             }
         }
         else {
-            curr_operation = str[i];
+            curr_operation = s[i];
         }
     }
 
