@@ -11,6 +11,8 @@
  * @return {_Node}
  */
 var cloneGraph = function(node) {
+    //time: O(N + E)
+    // space: O(N + E)
     if (!node) return null;
 
     let oldToNew = new Map();
