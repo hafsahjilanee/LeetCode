@@ -21,18 +21,18 @@ var verticalTraversal = function (root) {
     let max = -Infinity;
 
     while (q.length) {
-        let [x, y, node] = q.shift();
+        let [row, col, node] = q.shift();
 
-        min = Math.min(min, y);
-        max = Math.max(max, y);
+        min = Math.min(min, col);
+        max = Math.max(max, col);
 
-        map.set(y, [...(map.get(y) || []), [x,node.val]]);
+        map.set(col, [...(map.get(col) || []), [row,node.val]]);
 
         if (node.left) {
-            q.push([x + 1, y - 1, node.left]);
+            q.push([row + 1, col - 1, node.left]);
         }
         if (node.right) {
-            q.push([x + 1, y + 1, node.right]);
+            q.push([row + 1, col + 1, node.right]);
         }
     }
 
@@ -46,7 +46,7 @@ var verticalTraversal = function (root) {
             });
 
             // Extract only the node values
-            let columnValues = columnNodes.map(([x, val]) => val);
+            let columnValues = columnNodes.map(([row, val]) => val);
             res.push(columnValues);
         }
     }
