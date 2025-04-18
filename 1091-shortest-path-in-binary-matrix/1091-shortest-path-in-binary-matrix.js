@@ -3,33 +3,37 @@
  * @return {number}
  */
 var shortestPathBinaryMatrix = function(grid) {
-    //TC O(N²) (since an N × N grid has N² cells)
-    //SC O(N²) Queue may store up to O(N²) cells in worst case.
-    if (!grid.length || grid[0][0] === 1 || grid[grid.length-1][grid[0].length-1] === 1) return -1;
+    //O n squared for time bc we exploring in 8 directions
+    //O n squared for space bc in the worst case we have a grid of 0's
+    let directions = [[1,0],[-1,0], [0,1], [0,-1], [1,1], [-1,1], [1,-1], [-1,-1]];
+    let ROWS = grid.length;
+    let COLS = grid[0].length;
+    if (grid[0][0] === 1 || grid[ROWS-1][COLS-1] === 1) return -1;
 
-    let directions = [[-1,0], [1,0], [0,1], [0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
-    const ROWS = grid.length;
-    const COLS = grid[0].length;
-
-    let q = [];
-    //row, col and distance
-    q.push([0,0,1]);
-    grid[0][0] =1; //mark as visited
+    let q = []
+    //row, col, distance
+    q.push([0,0,1])
+    //mark as visited
+    grid[0][0] = 1;
 
     while (q.length) {
-        let [r, c, distance] = q.shift();
+        let [row, col, distance] = q.shift();
 
-        if (r===ROWS-1 && c===COLS-1) return distance;
+        if (row===ROWS-1 && col === COLS-1) {
+            return distance;
+        }
 
-        for (let [dr,dc] of directions) {
-            let nr = r+dr;
-            let nc = c+dc;
+        for (let [dr, dc] of directions) {
+            let nr = row +dr;
+            let nc = col + dc;
 
             if (nr>=0 && nc>=0 && nr<ROWS && nc<COLS && grid[nr][nc]===0) {
+                //mark as visited
                 grid[nr][nc] = 1;
                 q.push([nr,nc, distance+1]);
             }
         }
     }
+
     return -1;
 };
