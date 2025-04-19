@@ -12,12 +12,13 @@
  * @return {_Node}
  */
 var copyRandomList = function(head) {
+    //TC O(n)
+    //SC O(n)
     if (!head) return null;
 
     let oldToNew = new Map();
-    
-    let curr = head;
-    oldToNew.set(curr, new _Node(curr.val))
+    let curr = head
+    oldToNew.set(curr, new _Node(curr.val));
 
     while (curr) {
 
@@ -27,13 +28,15 @@ var copyRandomList = function(head) {
             }
             oldToNew.get(curr).next = oldToNew.get(curr.next);
         }
+
         if (curr.random) {
             if (!oldToNew.has(curr.random)) {
-                oldToNew.set(curr.random, new _Node(curr.random.val))
+                oldToNew.set(curr.random, new _Node(curr.random.val));
             }
             oldToNew.get(curr).random = oldToNew.get(curr.random);
         }
-        curr= curr.next;
+
+        curr = curr.next;
     }
 
     return oldToNew.get(head);
