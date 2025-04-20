@@ -6,15 +6,16 @@
 var canFinish = function (numCourses, prerequisites) {
     let graph = new Map();
 
-    for (let [course, prereq] of prerequisites) {
+    for (let [prereq, course] of prerequisites) {
         if (!graph.has(course)) {
-            graph.set(course, new Set());
+            graph.set(course, new Set())
         }
         graph.get(course).add(prereq);
     }
 
-    let visited = new Set();
-    let visiting = new Set();
+    //we need to detect cycle 
+    let visited = new Set() //fully processsed nodes
+    let visiting = new Set() //currently processing
 
     let dfs = (node) => {
         if (visited.has(node)) return true; //already processed skip
@@ -22,20 +23,20 @@ var canFinish = function (numCourses, prerequisites) {
 
         visiting.add(node);
 
-        if (graph.has(node)) { // Ensure the node exists in the graph
-            for (const nei of graph.get(node)) {
+        if (graph.has(node)) {
+            for (let nei of graph.get(node)) {
                 if (!dfs(nei)) return false;
             }
         }
-        visiting.delete(node);
+
+        //node is processed so
         visited.add(node);
+        visiting.delete(node);
         return true;
     }
 
     for (let i = 0; i < numCourses; i++) {
-        if (!visited.has(i) && !dfs(i)) {
-            return false;
-        }
+        if (!dfs(i) && !visited.has(i)) return false;
     }
 
     return true;
