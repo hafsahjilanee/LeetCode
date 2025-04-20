@@ -6,7 +6,7 @@
 var canFinish = function (numCourses, prerequisites) {
     let graph = new Map();
 
-    for (let [prereq, course] of prerequisites) {
+    for (let [course, prereq] of prerequisites) {
         if (!graph.has(course)) {
             graph.set(course, new Set())
         }
