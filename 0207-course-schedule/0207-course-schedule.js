@@ -35,8 +35,8 @@ var canFinish = function (numCourses, prerequisites) {
         return true;
     }
 
-    for (let i = 0; i < numCourses; i++) {
-        if (!dfs(i) && !visited.has(i)) return false;
+    for (let [course, _] of prerequisites) {
+        if (!dfs(course) && !visited.has(course)) return false;
     }
 
     return true;
