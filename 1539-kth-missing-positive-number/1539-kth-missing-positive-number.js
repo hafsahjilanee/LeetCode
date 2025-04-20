@@ -4,6 +4,8 @@
  * @return {number}
  */
 var findKthPositive = function(arr, k) {
+    //O(n) tc
+    //sc O(1)
     
     if (arr[0] !== 1) {
         //[5,6,7] and k=3
