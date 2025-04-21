@@ -4,7 +4,8 @@
  * @return {boolean}
  */
 var validWordAbbreviation = function(word, abbr) {
-    
+    //tc O(n)
+    //sc O(1)
     let wordPtr = 0;
     let abbrPtr = 0;
 
