@@ -8,18 +8,18 @@ var validPalindrome = function(s) {
 
     while (left<right) {
         if (s[left] !== s[right]) {
-            return isPalindrome(s.slice(left,right)) || isPalindrome(s.slice(left+1,right+1));
+            return isPalindrome(s.slice(left, right)) || isPalindrome(s.slice(left+1,right+1));
         }
-
         left++;
-        right--;
+        right--
     }
+
     return true;
 };
 
 var isPalindrome = function(word) {
-    let left =0;
-    let right =word.length-1;
+    let left = 0;
+    let right = word.length -1;
 
     while (left<right) {
         if (word[left] !== word[right]) {
@@ -28,6 +28,5 @@ var isPalindrome = function(word) {
         left++;
         right--;
     }
-
     return true;
-}
+};
