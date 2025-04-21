@@ -3,26 +3,23 @@
  * @return {number[][]}
  */
 var merge = function(intervals) {
-    //TC On log n bc of sorting
-    //SC O(n) bc of results array
+    
     if (!intervals.length) return [];
 
-    intervals.sort((a,b)=> a[0]-b[0]);
-    let res = [intervals[0]];
+    intervals = intervals.sort((a,b) => a[0]-b[0]);
+    let merged = [intervals[0]];
 
-    for (let i=1; i<intervals.length; i++) {
+    for (let i = 1; i< intervals.length; i++) {
+        let [prevStart, prevEnd] = merged[merged.length-1];
         let [start, end] = intervals[i];
-        let [prevStart, prevEnd] = res[res.length-1];
 
-        //[1,3] res
-        //[2,6] intervals[1]
-        if (start<=prevEnd) {
-            res[res.length-1] = [prevStart, Math.max(prevEnd, end)];
+        if (start<=prevEnd ) {
+            merged[merged.length-1][1] = Math.max(prevEnd, end);
         }
         else {
-            res.push([start,end]);
+            merged.push([start, end]);
         }
     }
 
-    return res;
+    return merged;
 };
