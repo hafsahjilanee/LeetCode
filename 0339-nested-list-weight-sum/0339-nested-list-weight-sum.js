@@ -41,6 +41,8 @@
  * @return {number}
  */
 var depthSum = function(nestedList) {
+    //tc o(n)
+    //sc O(n) where w is the max number of elements at any depth level (worst case O(n)).
     let q = [];
     q.push(...nestedList);
     let res = 0;
