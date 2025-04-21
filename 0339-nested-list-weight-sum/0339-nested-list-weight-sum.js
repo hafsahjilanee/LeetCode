@@ -43,17 +43,17 @@
 var depthSum = function(nestedList) {
     let q = [];
     q.push(...nestedList);
-    let depth = 1;
     let res = 0;
+    let depth = 1;
 
     while (q.length) {
         let qLen = q.length;
 
-        for (let i =0; i<qLen; i++) {
+        for (let i=0; i<qLen; i++) {
             let curr = q.shift();
 
             if (curr.isInteger()) {
-                res+= curr.getInteger() * depth;
+                res += curr.getInteger() * depth
             }
             else {
                 q.push(...curr.getList());
