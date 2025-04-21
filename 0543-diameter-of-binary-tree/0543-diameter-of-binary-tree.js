@@ -11,25 +11,23 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
-    //TC O(n)
-    //space O(h)
+    //tc o(n) bc we reach each node once
+    //sc O(n) for skewed and O(log n) for balanced
     if (!root) return 0;
-    //LRC post order traversal
-    let max =0;
-    let dfs = (curr) => {
-        if (!curr) return 0;
+    let max = 0;
 
-        let left = dfs(curr.left);
-        let right = dfs(curr.right);
+    let dfs = (node) => {
+        if (!node) return 0;
+
+        let left = dfs(node.left);
+        let right = dfs(node.right);
 
         max = Math.max(max, left+right);
 
-        return 1 + Math.max(left,right)
+        return 1 + Math.max(left, right);
     }
 
     dfs(root);
+
     return max;
-
-
-
 };
