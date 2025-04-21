@@ -6,6 +6,9 @@
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 var merge = function(nums1, m, nums2, n) {
+    //O(m+n) time
+    //o(1) space
+
     let i = m-1;
     let j = n-1;
     let k = m+n-1;
