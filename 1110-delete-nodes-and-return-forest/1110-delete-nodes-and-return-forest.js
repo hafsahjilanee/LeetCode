@@ -12,6 +12,8 @@
  * @return {TreeNode[]}
  */
 var delNodes = function (root, to_delete) {
+    //tc 0(n) + o(d) where d is number of elements in to_delete
+    //sc 0(d) + O(n) where n is number of elements in tree
     let toDelete = new Set(to_delete);
     let forest = [];
 
