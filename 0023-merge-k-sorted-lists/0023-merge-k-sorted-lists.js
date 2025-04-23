@@ -22,8 +22,8 @@ var mergeKLists = function(lists) {
     };
 
     let dummy = new ListNode(-1);
-    let curr = dummy; 
-    
+    let curr = dummy;
+
     while (minHeap.size()>0) {
         let node = minHeap.dequeue();
         curr.next = node;
