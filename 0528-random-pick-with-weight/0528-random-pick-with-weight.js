@@ -30,7 +30,7 @@ Solution.prototype.pickIndex = function() {
     while (left<right) {
         let mid = Math.floor((left+right)/2);
 
-        if (random > this.cumulativeWeight[mid]) {
+        if (random >= this.cumulativeWeight[mid]) {
             left = mid+1;
         }
         else {
