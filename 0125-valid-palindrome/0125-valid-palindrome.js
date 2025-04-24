@@ -3,6 +3,8 @@
  * @return {boolean}
  */
 var isPalindrome = function(s) {
+    //tc o(n)
+    //sc 0(1)
     let left = 0;
     let right = s.length-1;
 
@@ -22,11 +24,10 @@ var isPalindrome = function(s) {
         left++;
         right--;
     }
-
     return true;
 };
 
-function isLetter(char) {
+var isLetter = function (char) {
     let regex = /^[a-zA-Z0-9]$/;
     return regex.test(char);
 }
