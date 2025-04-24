@@ -4,7 +4,8 @@
  * @return {number}
  */
 var subarraySum = function(nums, k) {
-    
+    //sc o(n)
+    //tc o(n)
     let prefixMap = new Map();
     prefixMap.set(0,1);
     let sum = 0;
