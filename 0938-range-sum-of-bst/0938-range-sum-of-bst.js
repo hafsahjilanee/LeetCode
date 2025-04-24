@@ -28,6 +28,6 @@ var rangeSumBST = function(root, low, high) {
         if (curr.val < high) dfs(curr.right);
     }
 
-    dfs(root,0);
+    dfs(root);
     return sum;
 };
