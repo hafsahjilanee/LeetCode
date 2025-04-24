@@ -3,19 +3,18 @@
  * @return {number}
  */
 var minAddToMakeValid = function(s) {
-    let close = 0;
-    let open = 0;
 
+    let open =0;
+    let close = 0;
     for (let char of s) {
-        if (char === '(') close++;
+        if (char === '(') {
+            close++;
+        }
         else if (char === ')') {
-            if (close > 0) {
-                close--;
-                continue;
-            }
-            open++;
+            if (close) close--;
+            else open++
         }
     }
 
-    return close+open;
+    return open+close;
 };
