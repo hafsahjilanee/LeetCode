@@ -4,29 +4,25 @@
  */
 var productExceptSelf = function (nums) {
     if (!nums.length) return [];
+    const n = nums.length;
 
-    let prefix = [];
-    let postfix = [];
-    let res = 1;
+    let output = new Array(n);
+    let curr = 1;
+    output[0] = 1;
 
-    for (let i = 0; i < nums.length; i++) {
-        res *= nums[i];
-        prefix[i] = res;
-    }
-    res = 1;
-    for (let i = nums.length - 1; i >= 0; i--) {
-        res *= nums[i];
-        postfix[i] = res;
+    for (let i=0; i<n; i++) {
+        //at each i store product of numbers before it
+        output[i] = curr;
+        curr *= nums[i];
     }
 
-    let output = [];
-    for (let i = 0; i < nums.length; i++) {
-        if (i === 0) output[i] = postfix[i + 1]
-        else if (i === nums.length - 1) output[i] = prefix[i - 1];
-        else {
-            output[i] = prefix[i - 1] * postfix[i + 1];
-        }
+    //do a reverse pass and this time multiply each i with it's postfix
+    curr = 1;
+    for (let i=n-1; i>=0; i--) {
+        output[i] *= curr;
+        curr *= nums[i];
     }
 
     return output;
+    
 };
