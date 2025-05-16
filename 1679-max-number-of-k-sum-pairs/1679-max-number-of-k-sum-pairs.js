@@ -4,6 +4,8 @@
  * @return {number}
  */
 var maxOperations = function(nums, k) {
+    //tc o(n)
+    //sc o(n)
     let map = new Map();
     let count = 0;
 
