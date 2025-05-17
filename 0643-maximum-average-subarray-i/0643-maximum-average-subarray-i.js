@@ -4,22 +4,17 @@
  * @return {number}
  */
 var findMaxAverage = function(nums, k) {
-    //TC O(n)
-    //SC O(1)
-    let left = 0;
-    let right = nums.length-1;
     let sum = 0;
-    let maxAverage = -Infinity;
+    for (let i=0; i<k; i++) {
+        sum+= nums[i];
+    }
+    let avg = sum/k;
 
-    for (let right=0; right<nums.length; right++) {
-        sum+=nums[right];
-
-        if (right-left+1 === k) {
-            maxAverage = Math.max(maxAverage, sum/k);
-            sum -= nums[left];
-            left++;
-        }
+    for (let i=k; i<nums.length; i++) {
+        sum+=nums[i]-nums[i-k]
+        avg = Math.max(avg, sum/k);
     }
 
-    return maxAverage;
+    return avg;
+
 };
