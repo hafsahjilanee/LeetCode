@@ -4,23 +4,23 @@
  */
 var equalPairs = function(grid) {
     let rowMap = new Map();
-    let num = '';
-    for (let r=0; r<grid.length; r++) {
-        for (let c=0; c<grid[0].length; c++) {
-            num += grid[r][c] + ',';
-        }
-        rowMap.set(num, (rowMap.get(num)||0)+1);
-        num = '';
-    };
 
-    let count = 0;
+    for (let r=0; r<grid.length; r++) {
+        const key = grid[r].toString(); //.toString is faster than join
+
+        rowMap.set(key, (rowMap.get(key)||0)+1);
+    }
+
+    let count =0;
 
     for (let c=0; c<grid.length; c++) {
+        let col = [];
         for (let r=0; r<grid[0].length; r++) {
-            num += grid[r][c]+',';
+            col.push(grid[r][c]);
         }
-        if (rowMap.has(num)) count += rowMap.get(num);
-        num = '';
+
+        const key = col.toString();
+        if (rowMap.has(key)) count+= rowMap.get(key);
     }
 
     return count;
