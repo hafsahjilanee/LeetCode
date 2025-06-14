@@ -3,30 +3,30 @@
  * @return {boolean}
  */
 var isValid = function(s) {
-    const obj = {
-        ')': '(',
-        '}': '{',
-        ']': '['
-    }
+    if (s.length % 2 !==0) return false;
 
-    const closingBrackets = [')', ']', '}'];
+    let closing = new Set([']','}',')']);
 
-    if (s.length % 2 !==0) {
-        return false;
+    let brackets = {
+        ')' : '(',
+        '}' : '{',
+        ']' : '['
     }
 
     let stack = [];
 
-    for (let i=0; i<s.length; i++) {
-        if (closingBrackets.includes(s[i])) {
-            if (stack.pop() !== obj[s[i]]) {
-                return false
+    for (let char of s) {
+        if (closing.has(char) && stack.length) {
+            if (stack[stack.length-1] === brackets[char]) {
+                stack.pop();
             }
             else {
-                continue;
+                return false;
             }
         }
-        stack.push(s[i]);
+        else {
+            stack.push(char);
+        }
     }
 
     return stack.length ? false: true;
