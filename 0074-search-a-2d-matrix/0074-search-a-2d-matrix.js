@@ -3,25 +3,52 @@
  * @param {number} target
  * @return {boolean}
  */
-var searchMatrix = function (matrix, target) {
-    //tc O(log(m * n))
-    //Since binary search runs in O(log N) time, and you’re searching in m * n elements, it becomes O(log(m * n)).
-    //sc O(1)
-    if (matrix.length === 0 || matrix[0].length === 0) return false;
-    const ROWS = matrix.length, COLS = matrix[0].length;
-    let left = 0, right = ROWS * COLS - 1;
+var searchMatrix = function(matrix, target) {
+    let bounds = [];
+    let COLS = matrix[0].length;
+    let ROWS = matrix.length;
 
-    while (left <= right) {
-        const mid = Math.floor((left + right) / 2);
-        //how many complete rows fit
-        const row = Math.floor(mid / COLS);
-        //offset within the row
-        const col = mid % COLS;
-        const midVal = matrix[row][col];
+    for (let r = 0; r<matrix.length; r++) {
+        bounds.push(matrix[r][COLS-1]);
+    }   
 
-        if (midVal === target) return true;
-        else if (midVal < target) left = mid + 1;
-        else right = mid - 1;
+    let left = 0;
+    let right = bounds.length-1;
+    let mid = 0;
+    let row = -1;
+
+    while (left<=right) {
+        let mid = Math.floor((left+right)/2);
+        if (target === bounds[mid]) return true;
+
+        if (target<bounds[mid]) {
+            row = mid;
+            right = mid-1;
+        }
+        else if (target>bounds[mid]) {
+            left = mid+1;
+        }
     }
+
+    if (row === -1) return false;
+    
+    left =0;
+    right= COLS-1;
+
+    //search within the row
+    while(left<=right) {
+        mid = Math.floor((left+right)/2);
+
+        if (target>matrix[row][mid]) {
+            left = mid+1;
+        }
+        else if (target<matrix[row][mid]) {
+            right = mid - 1;
+        }
+        else {
+            return true;
+        }
+    }
+
     return false;
 };
