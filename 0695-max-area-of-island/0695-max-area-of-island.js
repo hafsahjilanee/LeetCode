@@ -25,7 +25,9 @@ var maxAreaOfIsland = function(grid) {
 
     for (let r=0; r<ROWS; r++) {
         for (let c=0; c<COLS; c++) {
-            maxArea = Math.max(maxArea, dfs(r,c));
+            if (grid[r][c] === 1) {  //Skip water cells
+                maxArea = Math.max(maxArea, dfs(r, c));
+            }
         }
     }
 
