@@ -10,35 +10,28 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var levelOrder = function(root) {
-    let current = root;
-    const res = [];
-    let queue = new Queue();
-    let level=[];
-    
-    if (!root) {
-        return res;
-    }
+var levelOrder = function (root) {
+    if (!root) return [];
 
-    queue.push(root);
+    let q = [root];
+    let res = [];
+    let arr = [];
 
-    while (!queue.isEmpty()) {
-        //queue size makes sure we are going one level at a time
-        level = [];
-        let qLen = queue.size();
-        //store the queue size bec it is dynamic and we want the loop to run for only 1 level at a time
-        for (let i =0; i<qLen; i++) {
-            let node = queue.pop();
-            level.push(node.val)
-            if (node.left) {
-                queue.push(node.left);
-            }
-            if (node.right) {
-                queue.push(node.right);
-            }
+    while (q.length) {
+        let length = q.length;
+        arr = [];
+
+        for (let i = 0; i < length; i++) {
+            let node = q.shift();
+
+            arr.push(node.val);
+
+            if (node.left) q.push(node.left);
+            if (node.right) q.push(node.right);
         }
-        res.push(level);
-    }
-    return res;
 
+        res.push(arr);
+    }
+
+    return res;
 };
