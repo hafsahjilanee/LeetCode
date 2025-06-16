@@ -22,7 +22,6 @@ var maxAreaOfIsland = function(grid) {
     }
 
     let maxArea = 0;
-    let islandArea = 0;
 
     for (let r=0; r<ROWS; r++) {
         for (let c=0; c<COLS; c++) {
