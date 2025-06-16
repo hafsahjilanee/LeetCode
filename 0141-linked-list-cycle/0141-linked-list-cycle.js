@@ -11,35 +11,15 @@
  * @return {boolean}
  */
 var hasCycle = function(head) {
-    // //initial solution
-    // if (!head) {
-    //     return false;
-    // }
-    // let visited = new Set();
-    // let current = head;
-    // while (current) {
-    //     if (visited.has(current)) {
-    //         return true;
-    //     }
+    let set = new Set();
 
-    //     //store the entire current because if you just store value, there may be repetitions of value in ll which may be misleading
-    //     visited.add(current);
-    //     current = current.next;
+    let curr = head;
 
-    // }
+    while (curr) {
+       if (set.has(curr)) return true;
 
-    // return false;
-
-    //OPTIMIZED SOLUTION
-    //O(n) time O(1) space
-    let slow= head;
-    let fast = head;
-
-    while (fast && fast.next) {
-        slow = slow.next;
-        fast = fast.next.next;
-
-        if (slow===fast) return true;
+       set.add(curr);
+       curr = curr.next;
     }
 
     return false;
