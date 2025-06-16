@@ -8,23 +8,17 @@ var minMeetingRooms = function(intervals) {
     let startTimes = intervals.map((e)=> e[0]).sort((a,b)=>a-b);
     let endTimes = intervals.map((e)=> e[1]).sort((a,b)=>a-b);
 
-    let s = 0;
     let e = 0;
-    let count = 0;
-    let res = 0;
+    let rooms = 0;
 
-    while (s<startTimes.length) {
-        if (startTimes[s]< endTimes[e]) {
-            s++;
-            count++;
+    for (let i=0; i<startTimes.length; i++) {
+        if (startTimes[i]< endTimes[e]) {
+            rooms++;
         }
         else {
             e++;
-            count--
         }
-
-        res =Math.max(res, count);
     }
 
-    return res;
+    return rooms;
 };
