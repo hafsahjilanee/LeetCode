@@ -22,8 +22,21 @@ var invertTree = function(root) {
     // invertTree(root.right);
 
     //slightly better bc no temp declared
-    [root.left, root.right] = [invertTree(root.right), invertTree(root.left)];
+    // [root.left, root.right] = [invertTree(root.right), invertTree(root.left)];
     
+    // return root;
+
+    let q = [root];
+
+    while (q.length) {
+        let node = q.shift();
+
+        [node.left, node.right] = [node.right, node.left];
+
+        if (node.left) q.push(node.left);
+        if (node.right) q.push(node.right);
+    }
+
     return root;
     
 };
