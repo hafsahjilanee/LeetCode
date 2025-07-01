@@ -24,8 +24,8 @@ var goodNodes = function(root) {
             max = curr.val;
         }
 
-        let left = dfs(curr.left,max);
-        let right = dfs(curr.right,max);
+        dfs(curr.left,max);
+        dfs(curr.right,max);
 
     }
     //do not call with max 0, initialize max to root.val
